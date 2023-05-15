@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Equation Editor</title>
+  <title>Matematicky priklad</title>
   <script src="/editorResources/lib/jquery-2.0.0.js"></script>
   <script src="/editorResources/lib/underscore-1.6.0.js"></script>
   <script src="/editorResources/lib/mousetrap-1.4.6.js"></script>
@@ -175,14 +175,7 @@
   <link href="/css/editor/equationEditor.css" rel="stylesheet" type="text/css" charset="utf-8" />
 </head>
 <body>
-    <button id="toJSON">To JSON</button>
-    <button id="toLatex">To LaTeX</button>
-    <br /><br />
-    <input id="hiddenFocusInput" style="width: 0; height: 0; opacity: 0; position: absolute; top: 0; left: 0;" type="text" autocapitalize="off" />
-    <div id="loadingMessageOuter" style="width: 234px; height: 64px;">
-      <div id="loadingMessage" class="fontSizeSmaller" style="width: 234px; height: 64px; position: fixed;"></div>
-    </div>
-    <div class="equation-editor"></div>
+    <h1>Zadanie....</h1>
     <div class="tabs">
         <ul class="outer-tab-links tab-links">
             <li class="outerTab active"><a href="#common">Common</a></li>
@@ -493,32 +486,15 @@
             </div>
         </div>
     </div>
-    JSON:
-    <div id="ContentJSON" style="margin: 20px; border: solid 1px #000">&nbsp;</div>
-    LaTeX:
+    <h1>Odpoved napis sem</h1>
+    <div class="equation-editor"></div>
+    <input id="hiddenFocusInput" style="width: 0; height: 0; opacity: 0; position: absolute; top: 0; left: 0;" type="text" autocapitalize="off" />
+    <div id="loadingMessageOuter" style="width: 234px; height: 64px;">
+      <div id="loadingMessage" class="fontSizeSmaller" style="width: 234px; height: 64px; position: fixed;"></div>
+    </div>
+    <button id="toLatex">Posli odpoved</button>
+    <p>LaTeX:</p>
     <div id="ContentLatex" style="margin: 20px; border: solid 1px #000">&nbsp;</div>
-    <script>
-      $('#toJSON').on('click', function() {
-        var jsonObj = $('.eqEdEquation').data('eqObject').buildJsonObj();
-        $('#ContentJSON').html(JSON.stringify(jsonObj));
-      });
-      $('#toLatex').on('click', function() {
-        var jsonObj = $('.eqEdEquation').data('eqObject').buildJsonObj();
-        $('#ContentLatex').html(generateLatex(jsonObj));
-      });
-    </script>
-    <textarea id="TextJSON"></textarea>
-    <br>
-    <button id="JSONtoEqEd">Render Equation</button>
-    <script>
-      $('#JSONtoEqEd').on('click', function(e) {
-        var jsonObj = $.parseJSON($('#TextJSON').val());
-        var equation = eqEd.Equation.constructFromJsonObj(jsonObj);
-        $('#renderedEq').empty();
-        $('#renderedEq').append(equation.domObj.value);
-        equation.updateAll();
-      });
-    </script>
-    <div id="renderedEq"></div>
+    <script src="/js/editor/latexAnswer.js"></script>
 </body>
 </html>
