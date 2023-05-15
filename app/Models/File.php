@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class File extends Model
 {
     use HasFactory;
+
+    public function mathProblems() 
+    {
+        return $this->hasMany(MathProblem::class);
+    }
 }
