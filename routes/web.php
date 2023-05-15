@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MathProblemController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\EditorController;
 use Illuminate\Support\Facades\Route;
@@ -29,6 +30,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+
 Route::get('/editor', [EditorController::class, 'show']);
+
+Route::get('/upload', [MathProblemController::class, 'create']);
 
 require __DIR__.'/auth.php';
