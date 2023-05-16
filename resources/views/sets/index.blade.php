@@ -1,4 +1,4 @@
-
+<a href="{{ route('upload.file.form') }}">{{ __('Upload new set') }}</a>
 <ul>
     @foreach ($sets as $set)
 

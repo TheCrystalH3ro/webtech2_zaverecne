@@ -35,8 +35,8 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware(['auth', 'teacher'])->group(function() {
-    Route::get('/upload/set', [FileController::class, 'create']);
-    Route::get('/upload/images', [FileController::class, 'addImages']);
+    Route::get('/upload/set', [FileController::class, 'create'])->name('upload.file.form');
+    Route::get('/upload/images', [FileController::class, 'addImages'])->name('upload.images.form');
 
     Route::post('/upload/set', [FileController::class, 'store'])->name('upload.file');
     Route::post('/upload/images', [FileController::class, 'storeImages'])->name('upload.images');
