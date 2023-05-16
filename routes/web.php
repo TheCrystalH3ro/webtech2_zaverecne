@@ -33,6 +33,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::get('/mathTasks', [EditorController::class, 'getTasks']);
 
 Route::get('/editor', [EditorController::class, 'show']);
 

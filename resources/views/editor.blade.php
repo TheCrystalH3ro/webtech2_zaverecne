@@ -171,11 +171,17 @@
   <script src="/js/editor/menuInteraction.js"></script>
   <script src="/js/editor/equationEditor.js"></script>
   <script src="/js/editor/latexGenerator.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+  <script src="/js/editor/latexAnswer.js" defer></script>
   <link href="/editorResources/Fonts/TeX/font.css" rel="stylesheet" type="text/css" charset="utf-8" />
   <link href="/css/editor/equationEditor.css" rel="stylesheet" type="text/css" charset="utf-8" />
+  
 </head>
-<body>
+<body onload="onLoad();">
     <h1>Zadanie....</h1>
+    <div id="content">
+    
+    </div>
     <div class="tabs">
         <ul class="outer-tab-links tab-links">
             <li class="outerTab active"><a href="#common">Common</a></li>
@@ -495,6 +501,5 @@
     <button id="toLatex">Posli odpoved</button>
     <p>LaTeX:</p>
     <div id="ContentLatex" style="margin: 20px; border: solid 1px #000">&nbsp;</div>
-    <script src="/js/editor/latexAnswer.js"></script>
 </body>
 </html>
