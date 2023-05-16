@@ -120,6 +120,19 @@ class FileController extends Controller
 
     }
 
+    public function destroy(Request $request, $id) {
+
+        $problemSet = File::findOrFail($id);
+
+        $mathProblemController = new MathProblemController();
+        $mathProblemController->clear($id);
+
+        $problemSet->delete();
+
+        return redirect()->route('sets.index');
+
+    }
+
     public function addImages() {
 
         return view('upload.image', []);

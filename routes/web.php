@@ -48,6 +48,8 @@ Route::middleware(['auth', 'teacher'])->group(function() {
     Route::post('/sets/{id}/edit', [FileController::class, 'update'])->name('sets.update');
 
     Route::get('/sets/{id}/download', [FileController::class, 'download'])->name('sets.download');
+
+    Route::delete('/sets/{id}/delete', [FileController::class, 'destroy'])->name('sets.destroy');
 });
 
 Route::get('/editor', [EditorController::class, 'show']);
