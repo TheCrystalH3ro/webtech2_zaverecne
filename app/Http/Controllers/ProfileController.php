@@ -57,4 +57,50 @@ class ProfileController extends Controller
 
         return Redirect::to('/');
     }
+
+    public function csvDownload()
+    {
+        ini_set('display_errors', 1);
+        ini_set('display_startup_errors', 1);
+        error_reporting(E_ALL);
+
+        require_once('config.php');
+
+
+        // Table name
+
+
+        header('Content-Type: text/csv');
+        header('Content-Disposition: attachment; filename="output.csv"');
+
+        // Construct the SQL query to export table to CSV
+        $sql = "SELECT * FROM games";
+
+        // Execute the query
+        $stmt = $db->query($sql);
+
+        // Fetch all rows from the result set
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        // Create a file handle using output buffering
+        $csvFile = fopen('php://output', 'w');
+
+        // Write the column headers to the CSV file
+        if (!empty($data)) {
+            $columnHeaders = array_keys($data[0]);
+            fputcsv($csvFile, $columnHeaders);
+        }
+
+        // Write the data rows to the CSV file
+        foreach ($data as $row) {
+            fputcsv($csvFile, $row);
+        }
+
+        // Close the file handle
+        fclose($csvFile);
+
+        // Flush the output buffer to send the file to the browser
+        flush();
+
+    }
 }

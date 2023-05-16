@@ -9,17 +9,20 @@ function onLoad() {
             // console.log("Data Loaded: " + data);
             data = JSON.parse(data);
             data.forEach(element => {
-                var div = document.createElement('p');
+                var div = document.createElement('div');
+                var p = document.createElement('p');
                 div.innerHTML = element.task;
                 div.style.width = "max-content";
-                content.appendChild(div);
+                div.appendChild(p);
+                
                 if(element.images.length != 0) {
                     element.images.forEach(image =>{
                         var img = document.createElement('img');
                         img.setAttribute('src', image);
-                        content.appendChild(img);
+                        div.appendChild(img);
                     })
                 }
+                content.appendChild(div);
                 MathJax.typeset();
             });
             MathJax.typeset();
