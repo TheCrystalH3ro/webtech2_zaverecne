@@ -43,13 +43,35 @@ class FileController extends Controller
         $mathProblemController = new MathProblemController();
         $mathProblemController->store($problemSet->id, $fileContents);
 
-    }
-
-    public function addImage() {
+        return redirect()->back();
 
     }
 
-    public function storeImage() {
+    public function addImages() {
+
+        return view('upload.image', []);
+    }
+
+    public function storeImages(Request $request) {
+
+        $request->validate([
+            'images.*' => 'required|file|max:4096|mimes:jpeg,png',
+        ]);
+
+        try {
+
+            $uploadedFiles = $request->file('images');
+
+            foreach ($uploadedFiles as $file) {
+                $fileName = $file->getClientOriginalName();
+                $filePath = $file->storeAs('uploadedImg', $fileName, 'public');
+            }
+
+        } catch(Exception $e) {
+            return redirect()->back()->withErrors(['images.*' => __('There was an error uploading images.')]);
+        }
+
+        return redirect()->back();
 
     }
 }
