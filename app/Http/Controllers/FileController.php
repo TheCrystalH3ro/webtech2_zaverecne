@@ -63,7 +63,7 @@ class FileController extends Controller
         $mathProblemController = new MathProblemController();
         $mathProblemController->store($problemSet->id, $fileContents);
 
-        return redirect()->back();
+        return redirect()->route('sets.index');
 
     }
 
@@ -194,7 +194,7 @@ class FileController extends Controller
             return redirect()->back()->withErrors(['images.*' => __('There was an error uploading images.')]);
         }
 
-        return redirect()->back();
+        return redirect()->route('images.index');
 
     }
 
