@@ -43,6 +43,9 @@ Route::middleware(['auth', 'teacher'])->group(function() {
 
     Route::get('/sets', [FileController::class, 'index'])->name('sets.index');
     Route::get('/sets/{id}', [FileController::class, 'show'])->name('sets.view');
+
+    Route::get('/sets/{id}/edit', [FileController::class, 'edit'])->name('sets.edit');
+    Route::post('/sets/{id}/edit', [FileController::class, 'update'])->name('sets.update');
 });
 
 Route::get('/editor', [EditorController::class, 'show']);

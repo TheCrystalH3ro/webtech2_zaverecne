@@ -67,6 +67,45 @@ class FileController extends Controller
 
     }
 
+    public function edit(Request $request, $id) {
+
+        $problemSet = File::findOrFail($id);
+
+        return view('sets.edit', [
+            'set' => $problemSet
+        ]);
+
+    }
+
+    public function update(Request $request, $id) {
+
+        $problemSet = File::findOrFail($id);
+
+        $request->validate([
+            'problemSet' => 'required|file|max:4096|mimes:tex,application/x-tex',
+        ]);
+
+        try {
+            $file = $request->file('problemSet');
+
+            $filePath = $file->storeAs('problems', $problemSet->title);
+
+        } catch(Exception $e) {
+            return redirect()->back()->withErrors(['problemSet' => __('There was an error uploading file.')]);
+        }
+
+        $fileContents = Storage::get($filePath);
+
+        $mathProblemController = new MathProblemController();
+
+        $mathProblemController->clear($problemSet->id);
+
+        $mathProblemController->store($problemSet->id, $fileContents);
+
+        return redirect()->route('sets.view', ["id" => $problemSet->id]);
+
+    }
+
     public function addImages() {
 
         return view('upload.image', []);

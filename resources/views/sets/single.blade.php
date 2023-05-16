@@ -1,5 +1,5 @@
 <h1>{{ $set->getTitle() }}</h1>
-<a href="#">{{ __('Edit problem set') }}</a>
+<a href="{{ route('sets.edit', ["id" => $set->id]) }}">{{ __('Edit problem set') }}</a>
 <a href="#">{{  __('Download problem set') }}</a>
 <form action="#" method="post">
     @csrf
