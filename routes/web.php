@@ -52,6 +52,8 @@ Route::middleware(['auth', 'teacher'])->group(function() {
     Route::delete('/sets/{id}/delete', [FileController::class, 'destroy'])->name('sets.destroy');
 
     Route::get('/images', [FileController::class, 'showImages'])->name('images.index');
+
+    Route::delete('/images/{imageName}/delete', [FileController::class, 'destroyImage'])->name('images.destroy');
 });
 
 Route::get('/editor', [EditorController::class, 'show']);

@@ -5,7 +5,7 @@
         <h3>
             {{ $image->name }}
         </h3>
-        <form action="#" method="POST">
+        <form action="{{ route('images.destroy', ["imageName" => $image->base]) }}" method="POST">
             @csrf
             @method('DELETE')
             <button type="submit">{{ __('Delete image') }}</button>

@@ -127,6 +127,12 @@ class FileController extends Controller
         $mathProblemController = new MathProblemController();
         $mathProblemController->clear($id);
 
+        $filePath = 'problems\\' . $problemSet->title;
+
+        if(Storage::exists($filePath)) {
+            Storage::delete($filePath);
+        }
+
         $problemSet->delete();
 
         return redirect()->route('sets.index');
@@ -153,6 +159,7 @@ class FileController extends Controller
 
         $images = $images->map(function ($image) {
             return (object) [
+                "base" => basename($image),
                 "name" => pathinfo($image, PATHINFO_FILENAME),
                 "path" => $image
             ];
@@ -188,6 +195,18 @@ class FileController extends Controller
         }
 
         return redirect()->back();
+
+    }
+
+    public function destroyImage(Request $request, $imageName) {
+
+        $path = 'uploadedImg\\' . $imageName;
+
+        abort_if(!Storage::disk('public')->exists($path), 404);
+
+        Storage::disk('public')->delete($path);
+
+        return redirect()->route('images.index');
 
     }
 
