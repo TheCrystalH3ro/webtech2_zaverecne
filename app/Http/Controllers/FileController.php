@@ -106,6 +106,20 @@ class FileController extends Controller
 
     }
 
+    public function download(Request $request, $id) {
+
+        $problemSet = File::findOrFail($id);
+
+        $path = 'problems\\' . $problemSet->title;
+
+        abort_if(!Storage::exists($path), 404);
+
+        $filePath = storage_path('app\\' . $path);
+
+        return response()->download($filePath);
+
+    }
+
     public function addImages() {
 
         return view('upload.image', []);
