@@ -79,4 +79,14 @@ class MathProblemController extends Controller
         }
     }
 
+    public function clear($fileId) {
+
+        $mathProblems = MathProblem::where('file_id', $fileId)->get();
+
+        foreach($mathProblems as $mathProblem) {
+            $mathProblem->delete();
+        }
+
+    }
+
 }
