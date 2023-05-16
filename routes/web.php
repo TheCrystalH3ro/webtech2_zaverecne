@@ -40,6 +40,9 @@ Route::middleware(['auth', 'teacher'])->group(function() {
 
     Route::post('/upload/set', [FileController::class, 'store'])->name('upload.file');
     Route::post('/upload/images', [FileController::class, 'storeImages'])->name('upload.images');
+
+    Route::get('/sets', [FileController::class, 'index'])->name('sets.index');
+    Route::get('/sets/{id}', [FileController::class, 'show'])->name('sets.view');
 });
 
 Route::get('/editor', [EditorController::class, 'show']);

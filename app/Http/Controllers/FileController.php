@@ -9,6 +9,26 @@ use Illuminate\Support\Facades\Storage;
 
 class FileController extends Controller
 {
+
+    public function index() {
+
+        $problemSets = File::get();
+
+        return view('sets.index', [
+            'sets' => $problemSets
+        ]);
+
+    }
+
+    public function show(Request $request, $id) {
+
+        $problemSet = File::findOrFail($id);
+
+        return view('sets.single', [
+            'set' => $problemSet
+        ]);
+    }
+
     public function create() {
 
         return view('upload.set', []);
@@ -74,4 +94,5 @@ class FileController extends Controller
         return redirect()->back();
 
     }
+
 }
