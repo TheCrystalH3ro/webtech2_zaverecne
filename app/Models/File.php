@@ -9,7 +9,11 @@ class File extends Model
 {
     use HasFactory;
 
-    public function mathProblems() 
+    protected $fillable = [
+        'title'
+    ];
+
+    public function mathProblems()
     {
         return $this->hasMany(MathProblem::class);
     }
