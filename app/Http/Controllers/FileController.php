@@ -133,6 +133,36 @@ class FileController extends Controller
 
     }
 
+    public function showImages() {
+
+        $images = Storage::disk('public')->files('uploadedImg');
+        $fileDetails = [];
+
+        foreach ($images as $file) {
+            $fileDetails[] = [
+                'path' => $file,
+                'timestamp' => Storage::disk('public')->lastModified($file),
+            ];
+        }
+
+        usort($fileDetails, function ($a, $b) {
+            return $b['timestamp'] - $a['timestamp'];
+        });
+
+        $images = collect(array_column($fileDetails, 'path'));
+
+        $images = $images->map(function ($image) {
+            return (object) [
+                "name" => pathinfo($image, PATHINFO_FILENAME),
+                "path" => $image
+            ];
+        });
+
+        return view('images.index', [
+            "images" => $images
+        ]);
+    }
+
     public function addImages() {
 
         return view('upload.image', []);

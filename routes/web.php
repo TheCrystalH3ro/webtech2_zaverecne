@@ -50,6 +50,8 @@ Route::middleware(['auth', 'teacher'])->group(function() {
     Route::get('/sets/{id}/download', [FileController::class, 'download'])->name('sets.download');
 
     Route::delete('/sets/{id}/delete', [FileController::class, 'destroy'])->name('sets.destroy');
+
+    Route::get('/images', [FileController::class, 'showImages'])->name('images.index');
 });
 
 Route::get('/editor', [EditorController::class, 'show']);
