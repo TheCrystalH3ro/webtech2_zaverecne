@@ -17,4 +17,8 @@ class File extends Model
     {
         return $this->hasMany(MathProblem::class);
     }
+
+    public function getTitle() {
+        return pathInfo($this->title, PATHINFO_FILENAME);
+    }
 }
