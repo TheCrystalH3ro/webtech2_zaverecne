@@ -18,7 +18,7 @@ function onLoad() {
                 if(element.images.length != 0) {
                     element.images.forEach(image =>{
                         var img = document.createElement('img');
-                        img.setAttribute('src', image);
+                        img.setAttribute('src', window.image_path + image);
                         div.appendChild(img);
                     })
                 }
