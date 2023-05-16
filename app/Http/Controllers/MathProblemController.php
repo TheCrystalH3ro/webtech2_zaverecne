@@ -47,13 +47,19 @@ class MathProblemController extends Controller
 
             // Find and remove \includegraphics commands in solution content
             $solutionContent = (!empty($solutions[$index])) ? $solutions[$index] : '';
-            $solutionContent = preg_replace('/\\\\includegraphics(?:\[.*?\])?\{(.*?)\}/', '', $solutionContent);
 
             // Find and extract the equation content from task content
             preg_match('/\$([^$]+)\$/', $matchedContent, $equationMatch);
             if (!empty($equationMatch[1])) {
                 $equationContent = $equationMatch[1];
                 $matchedContent = str_replace($equationMatch[0], '\begin{equation*}' . $equationContent . '\end{equation*}', $matchedContent);
+            }
+
+            preg_match('/\$([^$]+)\$/', $solutionContent, $solutionMatch);
+            if (!empty($solutionMatch[1])) {
+                $equationContent = $solutionMatch[1];
+                $solutionContent = str_replace($solutionMatch[0], '\begin{equation*}' . $equationContent . '\end{equation*}', $solutionContent);
+                dump($solutionContent);
             }
 
             $parts = explode('/', $taskImages);
