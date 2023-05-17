@@ -1,6 +1,7 @@
 <h1>{{ $set->getTitle() }}</h1>
 <a href="{{ route('sets.edit', ["id" => $set->id]) }}">{{ __('Edit problem set') }}</a>
 <a href="{{ route('sets.download', ["id" => $set->id]) }}" target="_blank">{{  __('Download problem set') }}</a>
+<a href="{{ route('sets.assign', ["id" => $set->id]) }}">{{  __('Assign to student') }}</a>
 <form action="{{ route('sets.destroy', ["id" => $set->id]) }}" method="post">
     @csrf
     @method('DELETE')

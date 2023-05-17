@@ -64,6 +64,11 @@ Route::middleware(['auth', 'teacher'])->group(function() {
     Route::get('/images', [FileController::class, 'showImages'])->name('images.index');
 
     Route::delete('/images/{imageName}/delete', [FileController::class, 'destroyImage'])->name('images.destroy');
+
+    Route::get('/sets/{id}/assign', [FileController::class, 'manageStudents'])->name('sets.assign');
+    Route::post('/sets/{id}/assign', [FileController::class, 'assign']);
+
+    Route::delete('/sets/{id}/unassign/{user}', [FileController::class, 'unassign'])->name('sets.unassign');
 });
 
 Route::middleware(['auth', 'student'])->group(function() {

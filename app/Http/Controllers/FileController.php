@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\File;
+use App\Models\Role;
+use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -150,6 +152,50 @@ class FileController extends Controller
         $filePath = storage_path('app\\' . $path);
 
         return response()->download($filePath);
+
+    }
+
+    public function manageStudents(Request $request, $id) {
+
+        $problemSet = File::findOrFail($id);
+
+        return view('sets.assign', [
+            'set' => $problemSet
+        ]);
+    }
+
+    public function assign(Request $request, $id) {
+
+        $problemSet = File::findOrFail($id);
+
+        $request->validate([
+            'email' => 'required|email|exists:users,email'
+        ]);
+
+        $user = User::where('email', $request->input('email'))->first();
+
+        if($user->role->name != Role::$STUDENT) {
+            return redirect()->back()->withErrors(['email' => __('User with this email is not a student')]);
+        }
+
+        if($user->sets()->where('id', $id)->exists()) {
+            return redirect()->back()->withErrors(['email' => __('This student has already assigned this file set.')]);
+        }
+
+        $user->sets()->attach($problemSet);
+
+        return redirect()->route('sets.assign', ["id" => $id]);
+    }
+
+    public function unassign(Request $request, $id, User $user) {
+
+        File::findOrFail($id);
+
+        abort_if(!$user->sets()->where('id', $id)->exists(), 404);
+
+        $user->sets()->detach($id);
+
+        return redirect()->route('sets.assign', ["id" => $id]);
 
     }
 
