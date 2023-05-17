@@ -82,6 +82,39 @@ class FileController extends Controller
         $problemSet = File::findOrFail($id);
 
         $request->validate([
+            'title' => 'required|string',
+            'start_date' => 'nullable|date',
+            'end_date' => 'nullable|date|after_or_equal:start_date',
+        ]);
+
+        $fileName= $request->input('title') . ".tex";
+
+        if($fileName != $problemSet->title) {
+
+            if(File::where('title', $fileName)->first()) {
+                return redirect()->back()->withErrors(['title' => __('Problem set with this name already exists.')]);
+            }
+
+            Storage::move('problems\\' . $problemSet->title, 'problems\\' . $fileName);
+
+            $problemSet->title = $fileName;
+
+        }
+
+        $problemSet->start_date = $request->input('start_date');
+        $problemSet->end_date = $request->input('end_date');
+
+        $problemSet->save();
+
+        return redirect()->route('sets.view', ["id" => $problemSet->id]);
+
+    }
+
+    public function reupload(Request $request, $id) {
+
+        $problemSet = File::findOrFail($id);
+
+        $request->validate([
             'problemSet' => 'required|file|max:4096|mimes:tex,application/x-tex',
         ]);
 

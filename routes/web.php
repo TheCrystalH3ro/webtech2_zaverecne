@@ -5,6 +5,9 @@ use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\EditorController;
 use App\Http\Controllers\FileController;
+use App\Http\Controllers\StudentController;
+use App\Models\Role;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,6 +22,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+
+    if(Auth::check() && Auth::user()->role->name == Role::$STUDENT) {
+        $studentController = new StudentController();
+        return $studentController->dashboard();
+    }
+
     return view('welcome');
 });
 
@@ -45,7 +54,8 @@ Route::middleware(['auth', 'teacher'])->group(function() {
     Route::get('/sets/{id}', [FileController::class, 'show'])->name('sets.view');
 
     Route::get('/sets/{id}/edit', [FileController::class, 'edit'])->name('sets.edit');
-    Route::post('/sets/{id}/edit', [FileController::class, 'update'])->name('sets.update');
+    Route::patch('/sets/{id}/edit', [FileController::class, 'update'])->name('sets.update');
+    Route::put('/sets/{id}/edit', [FileController::class, 'reupload'])->name('sets.reupload');
 
     Route::get('/sets/{id}/download', [FileController::class, 'download'])->name('sets.download');
 
@@ -54,6 +64,13 @@ Route::middleware(['auth', 'teacher'])->group(function() {
     Route::get('/images', [FileController::class, 'showImages'])->name('images.index');
 
     Route::delete('/images/{imageName}/delete', [FileController::class, 'destroyImage'])->name('images.destroy');
+});
+
+Route::middleware(['auth', 'student'])->group(function() {
+
+    Route::get('/problem/generate', [StudentController::class, 'pickProblemSets'])->name('problems.pick');
+    Route::post('/problem/generate', [StudentController::class, 'generateMathProblems'])->name('problems.generate');
+
 });
 
 Route::get('/editor', [EditorController::class, 'show']);
