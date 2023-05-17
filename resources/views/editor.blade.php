@@ -171,6 +171,7 @@
   <script src="/js/editor/menuInteraction.js"></script>
   <script src="/js/editor/equationEditor.js"></script>
   <script src="/js/editor/latexGenerator.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/evaluatex@2.2.0/dist/evaluatex.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
   <script src="/js/editor/latexAnswer.js" defer></script>
   <link href="/editorResources/Fonts/TeX/font.css" rel="stylesheet" type="text/css" charset="utf-8" />
@@ -498,7 +499,7 @@
     <div id="loadingMessageOuter" style="width: 234px; height: 64px;">
       <div id="loadingMessage" class="fontSizeSmaller" style="width: 234px; height: 64px; position: fixed;"></div>
     </div>
-    <button id="toLatex">Posli odpoved</button>
+    <button id="sendAnswer">Posli odpoved</button>
     <p>LaTeX:</p>
     <div id="ContentLatex" style="margin: 20px; border: solid 1px #000">&nbsp;</div>
 </body>
