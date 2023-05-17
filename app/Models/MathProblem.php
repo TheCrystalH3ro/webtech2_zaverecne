@@ -22,4 +22,11 @@ class MathProblem extends Model
     {
         return $this->hasOne(File::class);
     }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'math_problem_user')
+                    ->withTimestamps()
+                    ->withPivot('is_submitted');
+    }
 }

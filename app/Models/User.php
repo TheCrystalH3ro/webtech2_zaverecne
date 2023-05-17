@@ -47,4 +47,26 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Role::class);
     }
+
+    public function sets() {
+        return $this->belongsToMany(File::class, 'file_user');
+    }
+
+    public function availableSets() {
+        return $this->sets()->availableForStudents($this);
+    }
+
+    public function mathProblems() {
+        return $this->belongsToMany(MathProblem::class, 'math_problem_user')
+                    ->withTimestamps()
+                    ->withPivot('is_submitted');
+    }
+
+    public function submittedMathProblems() {
+        return $this->mathProblems()->wherePivot('is_submitted', true);
+    }
+
+    public function unsubmittedMathProblems() {
+        return $this->mathProblems()->wherePivot('is_submitted', false);
+    }
 }

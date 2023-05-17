@@ -21,6 +21,10 @@ class File extends Model
         return $this->hasMany(MathProblem::class);
     }
 
+    public function users() {
+        return $this->belongsToMany(User::class, 'file_user');
+    }
+
     public function getTitle() {
         return pathInfo($this->title, PATHINFO_FILENAME);
     }
@@ -34,6 +38,16 @@ class File extends Model
         ->where(function (Builder $query) {
             $query->whereNull('end_date')
                 ->orWhereDate('end_date', '>=', now());
+        });
+    }
+
+    public function scopeAvailableForStudents(Builder $query, User $user)
+    {
+        $query->active()
+        ->whereDoesntHave('mathProblems', function ($query) use ($user) {
+            $query->whereHas('users', function ($query) use ($user) {
+                $query->where('user_id', $user->id);
+            });
         });
     }
 }
