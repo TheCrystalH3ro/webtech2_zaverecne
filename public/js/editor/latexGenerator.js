@@ -382,7 +382,12 @@ var subscriptToLatex = function(expr) {
 
 var superscriptToLatex = function(expr) {
 	var latexString = '';
-	var superscript = '^{' + generateLatex(expr.operands.superscript) + '}';
+	var superscript = '';
+	if(expr.operands.superscript.legth > 1) {
+		superscript = '^{' + generateLatex(expr.operands.superscript) + '}';
+	} else {
+		superscript = '^' + generateLatex(expr.operands.superscript) + '';
+	}
 	latexString += superscript;
 	return latexString;
 }

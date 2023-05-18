@@ -51,11 +51,6 @@ function isAnswerCorrect(answer) {
     if(taskSolution === answer) {
         return "spravne";
     }
-    
-    // rozdelit podla =, ak su 2x = tak mam dve moznosti vysledku
-    // musim si rozdelit odpoved a solution zaroven podla + a -, ak nemam rovnako podstringov nerovnaju sa, ak mam rovnako tak kontrolujem ich postupne...
-    //
-
     let solutionSplited = splitInputByEquator(taskSolution);
     let answerSplited = splitInputByEquator(answer);
     let rightAnswer = answerSplited[0];
@@ -108,8 +103,7 @@ function checkSolution(solution, answer) {
     let answerOperandsCount = countOperands(answer);
     if(solutionOperandsCount != -1 || answerOperandsCount != -1) {
         if(answerOperandsCount === solutionOperandsCount) {
-            hehe(solution, answer);
-            return "spravne";
+            return hehe(solution, answer);
         } else {
             return "nespravne";
         }
@@ -119,22 +113,24 @@ function checkSolution(solution, answer) {
 
 function hehe(solution, answer) {
     //let solutionPosition = 0;
-    let count = 0;
+    let correctCount = 0;
     let answerPosition = 0;
     for(i = 0; i < solution.length; i++) {
         if(solution[i] === '\\' && solution[i+1] === 'f') {  // \frac{}{}
             for(j = i + 1; j < solution.length; j++) { 
                 if(solution[j] === '{') {                   // need to find first bracket in \\frac
-                    let closingBracketIndex1 = findClosingBracketIndex(solution, j);
-                    if(closingBracketIndex1 == -1) {
+                    answerPosition += '\frac{'.length;
+                    let closingBracketIndexSolution = findClosingBracketIndex(solution, j);
+                    let closingBracketIndexAnswer = findClosingBracketIndex(answer, answerPosition);
+                    if(closingBracketIndexSolution == -1 && closingBracketIndexAnswer == -1) {
                         return "syntax error";
                     }
-                    if(solution.substring(i, closingBracketIndex1) === answer.substring(answerPosition, closingBracketIndex1)) {
+                    if(solution.substring(i, closingBracketIndexSolution) === answer.substring(answerPosition, closingBracketIndexAnswer)) {
                         return 'spravne';
                     }
-                    let solutionOperation = solution.substring(j + 1, closingBracketIndex1);
+                    let solutionOperation = solution.substring(j + 1, closingBracketIndexSolution);
                     let solutionNumbers = extractNumbersFromFrac(solutionOperation);
-                    let answerOperation = answer.substring(j + 1, closingBracketIndex1);
+                    let answerOperation = answer.substring(answerPosition + 1, closingBracketIndexAnswer);
                     let answerNumbers = extractNumbersFromFrac(answerOperation);
                     if(solutionNumbers.length === answerNumbers.length) {
                         let answerDivisor = 0;
@@ -157,19 +153,17 @@ function hehe(solution, answer) {
                             } 
                         }
                         if(solutionCount == solutionNumbers.length || answerCount == solutionNumbers.length) {
-                            return "spravne";
+                            correctCount++;
+                        } else {
+                            return "nespravne";
                         }
                     } else {
                         return "nespravne";
                     }
                     
-                    j = closingBracketIndex1 + 1;
-                    i = closingBracketIndex1 + 1;
-                    answerPosition = i;
-                    //let matches = operation.match(/(?<![a-zA-Z])[-+]?\d+(\.\d+)?(?![a-zA-Z])/g);
-                    //let numbers = matches.map(match => parseFloat(match.replace(/[+-]/, '')));
-                    //if(operation === answer[answerPosition]) {}
-                    
+                    j = solution.length;
+                    i = closingBracketIndexSolution;
+                    answerPosition = closingBracketIndexAnswer + 1;
                 }
             }
         } else if(solution[i] === '^') {
@@ -186,9 +180,44 @@ function hehe(solution, answer) {
                 }
             }
             count++;
-        } else if(/[+\-=a-zA-Z0-9]/.test(solution[i])) { // if its number, character or operator
-            count++;
+        } else if(!isNaN(solution[i])) {
+            // todo: if solution has number but in answer is \frac it can be same after division of frac
+            let number = '' + solution[i];
+            for(o = i + 1; o < solution.length; o++) {
+                if(!isNaN(solution[o])) {
+                    number += solution[o];
+                } else if(solution[o] === '.') {
+                    number += solution[o];
+                } else {
+                    break;
+                }
+            }
+            if(answer.substring(answerPosition, answerPosition + number.length) == number) { // if its number
+                correctCount++;
+                i += number.length - 1;
+                answerPosition += number.length;
+            } else {
+                return "nespravne";
+            }
+        } else if(solution[i] == '+' || solution[i] == '-') { // if its operator
+            if(solution[i] == answer[answerPosition]) {
+                correctCount++;
+                answerPosition++;
+            } else {
+                return "nespravne";
+            }
+        } else if(isNaN(solution[i])) { // if its character
+            if(isNaN(answer[answerPosition])) {
+                correctCount++;
+                answerPosition++;
+            } else {
+                return "nespravne";
+            }
+            
         }
+    }
+    if(correctCount == countOperands(solution)) {
+        return "spravne";
     }
 }
 
@@ -209,9 +238,12 @@ function extractNumbersFromFrac(operation) {
                 } else if(operation[m] === '.') {
                     number += operation[m];
                 } else {
-                    k = m;
+                    k = m - 1;
                     break;
                 }
+            }
+            if(m == operation.length) {
+                k = m - 1;
             }
             numbers.push(number);
         } else if (operation[k] === '\\') {
@@ -237,7 +269,7 @@ function extractNumbersFromFrac(operation) {
                     }
                 }
             }
-        } else if (/^[a-zA-Z]$/.test(operation[k])) {
+        } else if (/^[a-zA-Z]$/.test(operation[k]) && (k === 0 || isNaN(operation[k - 1]))) {
             numbers.push('1');
         } 
     }
@@ -273,7 +305,21 @@ function countOperands(input) {
                 }
             }
             count++;
-        } else if(/[+\-=a-zA-Z0-9]/.test(input[i])) { // if its number, character or operator
+        } else if(!isNaN(input[i])) {
+            let number = '' + input[i];
+            for(m = i + 1; m < input.length; m++) {
+                if(!isNaN(input[m])) {
+                    number += input[m];
+                    i++;
+                } else if(input[m] === '.') {
+                    number += input[m];
+                } else {
+                    i = m - 1;
+                    break;
+                }
+            }
+            count++;
+        } else {//if(/[+\-=a-zA-Z0-9]/.test(input[i])) { // if its number, character or operator
             count++;
         }
     }
