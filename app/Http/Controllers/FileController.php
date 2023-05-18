@@ -85,6 +85,7 @@ class FileController extends Controller
 
         $request->validate([
             'title' => 'required|string',
+            'points' => 'integer|min:0',
             'start_date' => 'nullable|date',
             'end_date' => 'nullable|date|after_or_equal:start_date',
         ]);
@@ -102,6 +103,8 @@ class FileController extends Controller
             $problemSet->title = $fileName;
 
         }
+
+        $problemSet->points = $request->input('points');
 
         $problemSet->start_date = $request->input('start_date');
         $problemSet->end_date = $request->input('end_date');
