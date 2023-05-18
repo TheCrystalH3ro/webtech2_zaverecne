@@ -85,6 +85,9 @@ Route::middleware(['auth', 'student'])->group(function() {
     Route::get('/problem/generate', [StudentController::class, 'pickProblemSets'])->name('problems.pick');
     Route::post('/problem/generate', [StudentController::class, 'generateMathProblems'])->name('problems.generate');
 
+    Route::get('/problem/{id}/solve', [MathProblemController::class, 'show'])->name('problem.solve');
+    Route::post('/problem/{id}/solve', [MathProblemController::class, 'submitAnswer']);
+
 });
 
 Route::get('/editor', [EditorController::class, 'show']);

@@ -16,6 +16,13 @@
         @enderror
     </div>
     <div>
+        <label for="points">{{ __('Points') }}</label>
+        <input type="number" name="points" id="points" min="0" value="{{ $set->points }}">
+        @error('points')
+            {{ $message }}
+        @enderror
+    </div>
+    <div>
         <label for="start_date">{{ __('Start date') }}</label>
         <input type="date" name="start_date" id="start_date" value="{{ $set->start_date }}">
         @error('start_date')

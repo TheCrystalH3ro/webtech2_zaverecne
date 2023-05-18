@@ -19,7 +19,7 @@
         @if ($mathProblem->image)
             <img src="{{ asset('storage/uploadedImg/' . $mathProblem->image) }}" alt="">
         @endif
-        <a href="{{ url('/editor') }}">{{ __('Solve') }}</a>
+        <a href="{{ route('problem.solve', $mathProblem->id) }}">{{ __('Solve') }}</a>
     </div>
 @endforeach
 

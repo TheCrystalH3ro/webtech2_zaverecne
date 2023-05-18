@@ -9,7 +9,7 @@ function onLoad() {
         type: "GET",
         success: function (data) {
             var div = document.createElement('p');
-            var solution = "\\begin{equation*}y(t)=\\dfrac{1}{12} - \\dfrac{3}{2}e^{-t} + \\dfrac{1}{6}e^{-3t} + \\dfrac{1}{4}e^{-4t} = 0.0833 -1.5 e^{-t} + 0.1666 e^{-3t} + 0.25 e^{-4t}\\end{equation*}";//data[0].solution; 
+            var solution = "\\begin{equation*}y(t)=\\dfrac{1}{12} - \\dfrac{3}{2}e^{-t} + \\dfrac{1}{6}e^{-3t} + \\dfrac{1}{4}e^{-4t} = 0.0833 -1.5 e^{-t} + 0.1666 e^{-3t} + 0.25 e^{-4t}\\end{equation*}";//data[0].solution;
             div.innerHTML = solution;
             taskSolution = solution.replace("\\begin{equation*}", '')
                       .replace("\\end{equation*}", '')
@@ -42,11 +42,11 @@ function onLoad() {
     });
 }
 
-$('#sendAnswer').on('click', function() {
-    var answerJsonObj = $('.eqEdEquation').data('eqObject').buildJsonObj();
-    var latexAnswer = generateLatex(answerJsonObj);
-    $('#ContentLatex').html(isAnswerCorrect(latexAnswer.toString().trim()));
-});
+// $('#sendAnswer').on('click', function() {
+//     var answerJsonObj = $('.eqEdEquation').data('eqObject').buildJsonObj();
+//     var latexAnswer = generateLatex(answerJsonObj);
+//     $('#ContentLatex').html(isAnswerCorrect(latexAnswer.toString().trim()));
+// });
 
 function isAnswerCorrect(answer) {
     console.log(answer);
@@ -129,7 +129,7 @@ function hehe(solution, answer) {
     let answerPosition = 0;
     for(i = 0; i < solution.length; i++) {
         if(solution[i] === '\\' && solution[i+1] === 'f') {  // \frac{}{}
-            for(j = i + 1; j < solution.length; j++) { 
+            for(j = i + 1; j < solution.length; j++) {
                 if(solution[j] === '{') {                   // need to find first bracket in \\frac
                     answerPosition += '\frac{'.length;
                     let closingBracketIndexSolution = findClosingBracketIndex(solution, j);
@@ -162,7 +162,7 @@ function hehe(solution, answer) {
                                 }
                                 solutionDivisor = answerNumbers[n] / solutionNumbers[n];
                                 solutionCount++;
-                            } 
+                            }
                         }
                         if(solutionCount == solutionNumbers.length || answerCount == solutionNumbers.length) {
                             correctCount++;
@@ -172,14 +172,14 @@ function hehe(solution, answer) {
                     } else {
                         return "nespravne";
                     }
-                    
+
                     j = solution.length;
                     i = closingBracketIndexSolution;
                     answerPosition = closingBracketIndexAnswer + 1;
                 }
             }
         } else if(solution[i] === '^') {
-            if(solution[i + 1] === '{' ) { 
+            if(solution[i + 1] === '{' ) {
                 let closingBracketIndex = findClosingBracketIndex(solution, i + 1);
                 if(closingBracketIndex == -1) {
                     return "syntax error";
@@ -229,7 +229,7 @@ function hehe(solution, answer) {
             } else {
                 return "nespravne";
             }
-            
+
         }
     }
     if(correctCount == countOperands(solution)) {
@@ -266,13 +266,13 @@ function extractNumbersFromFrac(operation) {
             numbers.push(number);
         } else if (operation[k] === '\\') {
             for(l = k; l < operation.length; l++) {
-                if(operation[l] === '{') { 
+                if(operation[l] === '{') {
                     // extract upper number from frac
                 }
                 // set k to the end of frac
             }
         } else if (operation[k] === '^') {
-            if(operation[k + 1] === '{' ) { 
+            if(operation[k + 1] === '{' ) {
                 let closingBracketIndex2 = findClosingBracketIndex(operation, k + 1);
                 if(closingBracketIndex2 == -1) {
                     return "syntax error";
@@ -289,7 +289,7 @@ function extractNumbersFromFrac(operation) {
             }
         } else if (/^[a-zA-Z]$/.test(operation[k]) && (k === 0 || isNaN(operation[k - 1]))) {
             numbers.push('1');
-        } 
+        }
     }
     return numbers;
 }
@@ -299,7 +299,7 @@ function countOperands(input) {
     for(i = 0; i < input.length; i++) {
         if(input[i] === '\\') { // \sqrt{} or \frac{}{}
             for(j = i; j < input.length; j++) {
-                if(input[j] === '{' ) { 
+                if(input[j] === '{' ) {
                     let closingBracketIndex = findClosingBracketIndex(input, j);
                     if(closingBracketIndex == -1) {
                         return "syntax error";
@@ -310,7 +310,7 @@ function countOperands(input) {
                 }
             }
         } else if(input[i] === '^') {
-            if(input[i + 1] === '{' ) { 
+            if(input[i + 1] === '{' ) {
                 let closingBracketIndex = findClosingBracketIndex(input, i + 1);
                 if(closingBracketIndex == -1) {
                     return "syntax error";
@@ -346,7 +346,7 @@ function countOperands(input) {
 
 function findClosingBracketIndex(input, openingIndex) {
     let counter = 0;
-  
+
     for (let i = openingIndex + 1; i < input.length; i++) {
       if (input[i] === "{") {
         counter++;

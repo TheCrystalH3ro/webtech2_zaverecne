@@ -107,4 +107,41 @@ class MathProblemController extends Controller
 
     }
 
+    public function show(Request $request, $id) {
+
+        $mathProblem = Auth::user()->mathProblems()->findOrFail($id);
+
+        abort_if($mathProblem->pivot->is_submitted, 404);
+
+        if($request->wantsJson()) {
+            return response()->json(json_encode([$mathProblem]));
+        }
+
+        return view('mathProblems.single', [
+            'mathProblem' => $mathProblem
+        ]);
+    }
+
+    private function isAnswerCorrect($userAnswer, MathProblem $mathProblem) {
+
+        return $userAnswer == $mathProblem->solution;
+    }
+
+    public function submitAnswer(Request $request, $id) {
+
+        $mathProblem = Auth::user()->mathProblems()->findOrFail($id);
+
+        abort_if($mathProblem->pivot->is_submitted, 404);
+
+        $request->validate([
+            'answer' => 'required|string'
+        ]);
+
+        $isCorrect = $this->isAnswerCorrect($request->input('answer'), $mathProblem);
+
+        Auth::user()->mathProblems()->updateExistingPivot($id, ['is_submitted' => true, 'is_correct' => $isCorrect]);
+
+        return redirect('/');
+    }
+
 }
