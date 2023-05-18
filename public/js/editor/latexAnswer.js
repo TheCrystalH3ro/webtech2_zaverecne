@@ -9,8 +9,14 @@ function onLoad() {
         type: "GET",
         success: function (data) {
             var div = document.createElement('p');
-            div.innerHTML = data[0].solution;
-            taskSolution = data[0].solution.replace("\\begin{equation*}", '').replace("\\end{equation*}", '').replace("\\dfrac", "\\frac").replace("\\tfrac", "\\frac").trim();
+            var solution = "\\begin{equation*}y(t)=\\dfrac{1}{12} - \\dfrac{3}{2}e^{-t} + \\dfrac{1}{6}e^{-3t} + \\dfrac{1}{4}e^{-4t} = 0.0833 -1.5 e^{-t} + 0.1666 e^{-3t} + 0.25 e^{-4t}\\end{equation*}";//data[0].solution; 
+            div.innerHTML = solution;
+            taskSolution = solution.replace("\\begin{equation*}", '')
+                      .replace("\\end{equation*}", '')
+                      .replace(/\\dfrac/g, "\\frac")
+                      .replace(/\\tfrac/g, "\\frac")
+                      .replace(/\s/g, "")
+                      .trim();
             div.style.width = "max-content";
             content.appendChild(div);
             // data.forEach(element => {
@@ -38,10 +44,6 @@ function onLoad() {
 
 $('#sendAnswer').on('click', function() {
     var answerJsonObj = $('.eqEdEquation').data('eqObject').buildJsonObj();
-    var solutionOperands = countOperands(taskSolution);
-    if(solutionOperands != answerJsonObj.operands.topLevelContainer.length) { // check if operand count is same, if yes lets check if the operands are also correct
-        $('#ContentLatex').html("nespravne");
-    }
     var latexAnswer = generateLatex(answerJsonObj);
     $('#ContentLatex').html(isAnswerCorrect(latexAnswer.toString().trim()));
 });
@@ -54,15 +56,25 @@ function isAnswerCorrect(answer) {
     let solutionSplited = splitInputByEquator(taskSolution);
     let answerSplited = splitInputByEquator(answer);
     let rightAnswer = answerSplited[0];
+    if(solutionSplited.length > 1 && answerSplited.length == 1) {
+        return "nespravne";
+    }
     if(answerSplited.length > 1) {
         rightAnswer = answerSplited[1];
+    } else if(solutionSplited.length < 1){
+        if(countOperands(rightAnswer) != countOperands(taskSolution)) {
+            return "nespravne";
+        }
     }
     if(solutionSplited.length > 1) { // if true there is equation or solutions in different form(y = \frac{1}{2} = 0.5)
-        if(solutionSplited[1].trim() === taskSolution || solutionSplited[2].trim() === taskSolution) {
+        if(solutionSplited[1].trim() == rightAnswer) {
             return "spravne";
-        } 
+        }
         let answer =  checkSolution(solutionSplited[1].trim(), rightAnswer);
         if(answer === "nespravne") {
+            if(solutionSplited[2].trim() == rightAnswer) {
+                return "spravne";
+            }
             answer = checkSolution(solutionSplited[2].trim(), rightAnswer);
         }
         return answer;
@@ -126,7 +138,7 @@ function hehe(solution, answer) {
                         return "syntax error";
                     }
                     if(solution.substring(i, closingBracketIndexSolution) === answer.substring(answerPosition, closingBracketIndexAnswer)) {
-                        return 'spravne';
+                        return "nespravne";
                     }
                     let solutionOperation = solution.substring(j + 1, closingBracketIndexSolution);
                     let solutionNumbers = extractNumbersFromFrac(solutionOperation);
@@ -173,13 +185,17 @@ function hehe(solution, answer) {
                     return "syntax error";
                 }
                 i = closingBracketIndex;
+                answerPosition = closingBracketIndex + 1;
             } else if(/[a-zA-Z0-9]/.test(solution[i + 1])) {
                 i++;
-                if(/[a-zA-Z0-9]/.test(solution[i + 2])) {
+                answerPosition++;
+                if(/[a-zA-Z0-9]/.test(solution[i + 1])) {
                     i++;
+                    answerPosition++;
                 }
+                answerPosition++;
             }
-            count++;
+            correctCount++;
         } else if(!isNaN(solution[i])) {
             // todo: if solution has number but in answer is \frac it can be same after division of frac
             let number = '' + solution[i];
@@ -218,6 +234,8 @@ function hehe(solution, answer) {
     }
     if(correctCount == countOperands(solution)) {
         return "spravne";
+    } else {
+        return "nespravne";
     }
 }
 
