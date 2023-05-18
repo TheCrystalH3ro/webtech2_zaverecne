@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\File;
 use App\Models\MathProblem;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MathProblemController extends Controller
 {
@@ -86,6 +89,21 @@ class MathProblemController extends Controller
         foreach($mathProblems as $mathProblem) {
             $mathProblem->delete();
         }
+
+    }
+
+    public function generate(File $problemSet, User $user) {
+
+
+        $mathProblemCount = $problemSet->mathProblems()->count();
+
+        $index = rand(0, $mathProblemCount - 1);
+
+        $mathProblem = $problemSet->mathProblems->get($index);
+
+        $user->mathProblems()->attach($mathProblem, ['is_submitted' => false]);
+
+        return $mathProblem;
 
     }
 

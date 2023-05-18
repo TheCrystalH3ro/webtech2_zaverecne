@@ -13,6 +13,9 @@
         </li>
     @endforelse
     </ul>
+    @error('problemSets.*')
+        {{ $message }}
+    @enderror
 
     <button type="submit" @if($student->availableSets->isEmpty()) disabled @endif>{{ __('Generate math problem') }}</button>
 

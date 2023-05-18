@@ -50,4 +50,10 @@ class File extends Model
             });
         });
     }
+
+    public function hasAssignedMathProblem(User $user) {
+        return $this->mathProblems()->whereHas('users', function ($query) use ($user) {
+            $query->where('user_id', $user->id);
+        })->exists();
+    }
 }

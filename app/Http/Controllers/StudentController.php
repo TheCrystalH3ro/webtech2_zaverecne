@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\File;
+use App\Models\MathProblem;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -84,7 +85,33 @@ class StudentController extends Controller
         ]);
     }
 
-    public function generateMathProblems() {
+    public function generateMathProblems(Request $request) {
+
+        $request->validate([
+            'problemSets.*' => 'integer|exists:files,id'
+        ]);
+
+        $mathProblemController = new MathProblemController();
+
+        $user = Auth::user();
+
+        foreach($request->input('problemSets') as $id) {
+
+            if(!$user->availableSets()->find($id)) {
+                return redirect()->back()->withErrors(['problemSets.*' => __('This student can\'t assign problems from this set.')]);
+            }
+
+            $problemSet = File::findOrFail($id);
+
+            if($problemSet->hasAssignedMathProblem($user)) {
+                return redirect()->back()->withErrors(['problemSets.*' => __('This student has already assigned problem from this file set.')]);
+            }
+
+            $mathProblemController->generate($problemSet, $user);
+
+        }
+
+        return redirect('/');
 
     }
 }
