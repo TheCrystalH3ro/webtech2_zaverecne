@@ -38,11 +38,11 @@ function onLoad() {
 
 }
 
-$('#sendAnswer').on('click', function() {
-    var jsonObj = $('.eqEdEquation').data('eqObject').buildJsonObj();
-    var latexAnswer = generateLatex(jsonObj);
-    $('#ContentLatex').html(isAnswerCorrect(latexAnswer.toString().trim()));
-});
+// $('#sendAnswer').on('click', function() {
+//     var jsonObj = $('.eqEdEquation').data('eqObject').buildJsonObj();
+//     var latexAnswer = generateLatex(jsonObj);
+//     $('#ContentLatex').html(isAnswerCorrect(latexAnswer.toString().trim()));
+// });
 
 function isAnswerCorrect(answer) {
     let latexSolution = taskSolution.replace("\\begin{equation*}", '').replace("\\end{equation*}", '').replace("\\dfrac", "\\frac").replace("\\tfrac", "\\frac").trim();
