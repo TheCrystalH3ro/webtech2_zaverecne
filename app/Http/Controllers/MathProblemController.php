@@ -121,10 +121,280 @@ class MathProblemController extends Controller
         ]);
     }
 
-    private function isAnswerCorrect($userAnswer, MathProblem $mathProblem) {
+    private function isAnswerCorrect($answer, MathProblem $mathProblem) {
+        $solution = trim(
+            preg_replace(
+                ['/\\dfrac/', '/\\tfrac/', '/\\s/'],
+                ['\\frac', '\\frac', ''],
+                str_replace(
+                    ['\\begin{equation*}', '\\end{equation*}'],
+                    '',
+                    $mathProblem->solution
+                )
+            )
+        );
+        $answer = str_replace(' ', '', $answer);
+        if($answer == $answer) {
 
-        return $userAnswer == $mathProblem->solution;
+        }
+        $solutionOperandsCount = $this->countOperands($solution);
+        $answerOperandsCount = $this->countOperands($answer);
+        if ($solutionOperandsCount != -1 || $answerOperandsCount != -1) {
+            if ($answerOperandsCount === $solutionOperandsCount) {
+                $correctCount = 0;
+                $answerPosition = 0;
+                for ($i = 0; $i < strlen($solution); $i++) {
+                    if ($solution[$i] === '\\' && $solution[$i + 1] === 'f') {  // \frac{}{}
+                        for ($j = $i + 1; $j < strlen($solution); $j++) {
+                            if ($solution[$j] === '{') {                   // need to find first bracket in \\frac
+                                $answerPosition += strlen('\frac{');
+                                $closingBracketIndexSolution = $this->findClosingBracketIndex($solution, $j);
+                                $closingBracketIndexAnswer = $this->findClosingBracketIndex($answer, $answerPosition);
+                                if ($closingBracketIndexSolution == -1 && $closingBracketIndexAnswer == -1) {
+                                    return false; // syntax error
+                                }
+                                if (substr($solution, $i, $closingBracketIndexSolution) === substr($answer, $answerPosition, $closingBracketIndexAnswer)) {
+                                    return false;
+                                }
+                                $solutionOperation = substr($solution, $j + 1, $closingBracketIndexSolution);
+                                $solutionNumbers = $this->extractNumbersFromFrac($solutionOperation);
+                                $answerOperation = substr($answer, $answerPosition + 1, $closingBracketIndexAnswer);
+                                $answerNumbers = $this->extractNumbersFromFrac($answerOperation);
+                                if (count($solutionNumbers) === count($answerNumbers)) {
+                                    $answerDivisor = 0;
+                                    $answerCount = 0;
+                                    $solutionDivisor = 0;
+                                    $solutionCount = 0;
+                                    for ($n = 0; $n < count($solutionNumbers); $n++) {
+                                        if (floor($solutionNumbers[$n] / $answerNumbers[$n]) === $solutionNumbers[$n] / $answerNumbers[$n]) {
+                                            if ($n > 0 && $answerDivisor != $solutionNumbers[$n] / $answerNumbers[$n]) {
+                                                break;
+                                            }
+                                            $answerDivisor = $solutionNumbers[$n] / $answerNumbers[$n];
+                                            $answerCount++;
+                                        }
+                                        if (floor($answerNumbers[$n] / $solutionNumbers[$n]) === $answerNumbers[$n] / $solutionNumbers[$n]) {
+                                            if ($n > 0 && $solutionDivisor != $answerNumbers[$n] / $solutionNumbers[$n]) {
+                                                break;
+                                            }
+                                            $solutionDivisor = $answerNumbers[$n] / $solutionNumbers[$n];
+                                            $solutionCount++;
+                                        }
+                                    }
+                                    if ($solutionCount == count($solutionNumbers) || $answerCount == count($solutionNumbers)) {
+                                        $correctCount++;
+                                    } else {
+                                        return false;
+                                    }
+                                } else {
+                                    return false;
+                                }
+
+                                $j = strlen($solution);
+                                $i = $closingBracketIndexSolution;
+                                $answerPosition = $closingBracketIndexAnswer + 1;
+                            }
+                        }
+                    } elseif ($solution[$i] === '^') {
+                        if ($solution[$i + 1] === '{') {
+                            $closingBracketIndex = $this->findClosingBracketIndex($solution, $i + 1);
+                                        if ($closingBracketIndex == -1) {
+                                return false; // syntax error
+                            }
+                            $i = $closingBracketIndex;
+                            $answerPosition = $closingBracketIndex + 1;
+                        } elseif (preg_match('/[a-zA-Z0-9]/', $solution[$i + 1])) {
+                            $i++;
+                            $answerPosition++;
+                            if (preg_match('/[a-zA-Z0-9]/', $solution[$i + 1])) {
+                                $i++;
+                                $answerPosition++;
+                            }
+                            $answerPosition++;
+                        }
+                        $correctCount++;
+                    } elseif (!is_numeric($solution[$i])) {
+                        // todo: if solution has number but in answer is \frac it can be same after division of frac
+                        $number = '' . $solution[$i];
+                        for ($o = $i + 1; $o < strlen($solution); $o++) {
+                            if (is_numeric($solution[$o])) {
+                                $number .= $solution[$o];
+                            } elseif ($solution[$o] === '.') {
+                                $number .= $solution[$o];
+                            } else {
+                                break;
+                            }
+                        }
+                        if (substr($answer, $answerPosition, strlen($number)) == $number) { // if it's a number
+                            $correctCount++;
+                            $i += strlen($number) - 1;
+                            $answerPosition += strlen($number);
+                        } else {
+                            return false;
+                        }
+                    } elseif ($solution[$i] == '+' || $solution[$i] == '-') { // if it's an operator
+                        if ($solution[$i] == $answer[$answerPosition]) {
+                            $correctCount++;
+                            $answerPosition++;
+                        } else {
+                            return false;
+                        }
+                    } elseif (!is_numeric($solution[$i])) { // if it's a character
+                        if (!is_numeric($answer[$answerPosition])) {
+                            $correctCount++;
+                            $answerPosition++;
+                        } else {
+                            return false;
+                        }
+                    }
+                }
+                if ($correctCount == $this->countOperands($solution)) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        }
+        return false; // syntax error
     }
+
+
+    function extractNumbersFromFrac($operation) {
+        $numbers = array();
+        for ($k = 0; $k < strlen($operation); $k++) {
+            if (is_numeric($operation[$k])) {
+                $number = $operation[$k];
+                for ($m = $k + 1; $m < strlen($operation); $m++) {
+                    if (is_numeric($operation[$m])) {
+                        $number .= $operation[$m];
+                        $k++;
+                    } elseif ($operation[$m] === '.') {
+                        $number .= $operation[$m];
+                    } else {
+                        $k = $m - 1;
+                        break;
+                    }
+                }
+                if ($m == strlen($operation)) {
+                    $k = $m - 1;
+                }
+                $numbers[] = $number;
+            } elseif ($operation[$k] === '\\') {
+                for ($l = $k; $l < strlen($operation); $l++) {
+                    if ($operation[$l] === '{') {
+                        // extract upper number from frac
+                    }
+                    // set k to the end of frac
+                }
+            } elseif ($operation[$k] === '^') {
+                if ($operation[$k + 1] === '{') {
+                    $closingBracketIndex2 = $this->findClosingBracketIndex($operation, $k + 1);
+                    if ($closingBracketIndex2 == -1) {
+                        return false; // syntax error
+                    }
+                    $k = $closingBracketIndex2;
+                } elseif (preg_match('/[+\-0-9a-zA-Z]/', $operation[$k + 1])) {
+                    $k++;
+                    if (preg_match('/^[a-zA-Z0-9]$/', $operation[$k + 1])) {
+                        $k++;
+                        if (preg_match('/^[a-zA-Z0-9]$/', $operation[$k + 1])) {
+                            $k++;
+                        }
+                    }
+                }
+            } elseif (preg_match('/^[a-zA-Z]$/', $operation[$k]) && ($k === 0 || !is_numeric($operation[$k - 1]))) {
+                $numbers[] = '1';
+            }
+        }
+        return $numbers;
+    }
+
+
+
+    function countOperands($input) {
+        $count = 0;
+        for ($i = 0; $i < strlen($input); $i++) {
+            if ($input[$i] === '\\') { // \sqrt{} or \frac{}{}
+                for ($j = $i; $j < strlen($input); $j++) {
+                    if ($input[$j] === '{') {
+                        $closingBracketIndex = $this->findClosingBracketIndex($input, $j);
+                        if ($closingBracketIndex == -1) {
+                            return false; // syntax error
+                        }
+                        $i = $closingBracketIndex;
+                        $count++;
+                        break;
+                    }
+                }
+            } elseif ($input[$i] === '^') {
+                if ($input[$i + 1] === '{') {
+                    $closingBracketIndex = $this->findClosingBracketIndex($input, $i + 1);
+                    if ($closingBracketIndex == -1) {
+                        return false; // syntax error
+                    }
+                    $i = $closingBracketIndex;
+                } elseif (preg_match('/[a-zA-Z0-9]/', $input[$i + 1])) {
+                    $i++;
+                    if (preg_match('/[a-zA-Z0-9]/', $input[$i + 2])) {
+                        $i++;
+                    }
+                }
+                $count++;
+            } elseif (is_numeric($input[$i])) {
+                $number = '' . $input[$i];
+                for ($m = $i + 1; $m < strlen($input); $m++) {
+                    if (is_numeric($input[$m])) {
+                        $number .= $input[$m];
+                        $i++;
+                    } elseif ($input[$m] === '.') {
+                        $number .= $input[$m];
+                    } else {
+                        $i = $m - 1;
+                        break;
+                    }
+                }
+                $count++;
+            } else { // if(/[+\-=a-zA-Z0-9]/.test(input[i])) { // if its number, character or operator
+                $count++;
+            }
+        }
+        return $count;
+    }
+
+
+    function findClosingBracketIndex($input, $openingIndex) {
+        $counter = 0;
+    
+        for ($i = $openingIndex + 1; $i < strlen($input); $i++) {
+            if ($input[$i] === "{") {
+                $counter++;
+            } elseif ($input[$i] === "}") {
+                if ($counter === 0) {
+                    if ($input[$i + 1] === "{") {
+                        $i++;
+                        continue;
+                    }
+                    return $i;
+                }
+                $counter--;
+            }
+        }
+        return -1;
+    }
+
+
+    function findCharacterWithSurroundingSymbols($str) {
+        $regex = '/[^a-zA-Z]([a-zA-Z])[^a-zA-Z]/';
+        if (preg_match($regex, $str, $matches) && count($matches) > 1) {
+            return $matches[1];
+        }
+        return null;
+    }
+
+
+
 
     public function submitAnswer(Request $request, $id) {
 
