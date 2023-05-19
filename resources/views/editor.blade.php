@@ -178,7 +178,7 @@
   <link href="/css/editor/equationEditor.css" rel="stylesheet" type="text/css" charset="utf-8" />
   
 </head>
-<body onload="onLoad();">
+<body>
     <h1>Zadanie....</h1>
     <div id="content">
     

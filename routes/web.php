@@ -43,9 +43,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-
-Route::get('/mathTasks', [EditorController::class, 'getTasks']);
-
 Route::middleware(['auth', 'teacher'])->group(function() {
     Route::get('/sets/upload', [FileController::class, 'create'])->name('upload.file.form');
     Route::get('/images/upload', [FileController::class, 'addImages'])->name('upload.images.form');

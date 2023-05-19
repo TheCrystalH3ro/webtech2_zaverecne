@@ -12,10 +12,4 @@ class EditorController extends Controller
         return view('editor');
     }
 
-    public function getTasks(): Response
-    {
-        $problems = DB::select('select * from math_problems');
-        return response()->json($problems);
-    }
-
 }
