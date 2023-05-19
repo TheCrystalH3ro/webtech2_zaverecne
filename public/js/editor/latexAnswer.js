@@ -1,5 +1,5 @@
-let taskSolution;
 
+<<<<<<< HEAD
 function onLoad() {
 
     var content = document.getElementById('content');
@@ -372,3 +372,9 @@ function findCharacterWithSurroundingSymbols(str) {
     }
     return null;
   }
+=======
+// $('#sendAnswer').on('click', function() {
+//     var answerJsonObj = $('.eqEdEquation').data('eqObject').buildJsonObj();
+//     var latexAnswer = generateLatex(answerJsonObj);
+// });
+>>>>>>> fd9816f (need to move code from js to php)
