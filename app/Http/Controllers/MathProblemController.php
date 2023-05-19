@@ -12,7 +12,7 @@ class MathProblemController extends Controller
     {
 
         $dirPath = storage_path('app/problems');
-        $filePath = $dirPath . '/blokovka01pr.tex';
+        $filePath = $dirPath . '/odozva02pr.tex';
         $content = file_get_contents($filePath);
 
         // var_dump($content);
@@ -49,17 +49,16 @@ class MathProblemController extends Controller
             $solutionContent = (!empty($solutions[$index])) ? $solutions[$index] : '';
 
             // Find and extract the equation content from task content
-            preg_match('/\$([^$]+)\$/', $matchedContent, $equationMatch);
-            if (!empty($equationMatch[1])) {
-                $equationContent = $equationMatch[1];
-                $matchedContent = str_replace($equationMatch[0], '\begin{equation*}' . $equationContent . '\end{equation*}', $matchedContent);
+            preg_match_all('/\$([^$]+)\$/', $matchedContent, $equationMatches);
+            foreach ($equationMatches[1] as $equationMatch) {
+                $equationContent = $equationMatch;
+                $matchedContent = str_replace('$' . $equationContent . '$', '\begin{equation*}' . $equationContent . '\end{equation*}', $matchedContent);
             }
-
-            preg_match('/\$([^$]+)\$/', $solutionContent, $solutionMatch);
-            if (!empty($solutionMatch[1])) {
-                $equationContent = $solutionMatch[1];
-                $solutionContent = str_replace($solutionMatch[0], '\begin{equation*}' . $equationContent . '\end{equation*}', $solutionContent);
-                dump($solutionContent);
+        
+            preg_match_all('/\$([^$]+)\$/', $solutionContent, $solutionMatches);
+            foreach ($solutionMatches[1] as $solutionMatch) {
+                $equationContent = $solutionMatch;
+                $solutionContent = str_replace('$' . $equationContent . '$', '\begin{equation*}' . $equationContent . '\end{equation*}', $solutionContent);
             }
 
             $parts = explode('/', $taskImages);
