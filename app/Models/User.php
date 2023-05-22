@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -18,7 +20,8 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'firstname',
+        'lastname',
         'email',
         'password',
         'role_id'
@@ -68,5 +71,11 @@ class User extends Authenticatable
 
     public function unsubmittedMathProblems() {
         return $this->mathProblems()->wherePivot('is_submitted', false);
+    }
+
+    public function scopeStudents(Builder $query) {
+        $query->whereHas('role', function ($query) {
+            $query->where('name', Role::$STUDENT);
+        });
     }
 }
