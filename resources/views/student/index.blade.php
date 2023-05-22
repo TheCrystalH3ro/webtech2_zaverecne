@@ -25,16 +25,22 @@
 </table>
 
 <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
-<link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
-<script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+<link href="https://cdn.datatables.net/v/bs5/dt-1.13.4/b-2.3.6/b-html5-2.3.6/datatables.min.css" rel="stylesheet"/>
+
+<script src="https://cdn.datatables.net/v/bs5/dt-1.13.4/b-2.3.6/b-html5-2.3.6/datatables.min.js"></script>
+
 
 <script>
     $(document).ready(function() {
         $('#students-table').DataTable({
+            dom: 'Bfrtip',
             columnDefs: [
                 { targets: [3], orderData: [3, 2] },
                 { targets: [4], orderData: [4, 2] },
                 { targets: [5], orderData: [5, 2] },
+            ],
+            buttons: [
+                'csv'
             ]
         });
     });
