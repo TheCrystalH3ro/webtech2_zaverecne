@@ -135,8 +135,6 @@ class MathProblemController extends Controller
             -1,
         );
         $answer = str_replace(' ', '', $answer);
-        var_dump($answer);
-        var_dump($solution);
         if($answer == $solution) {
             return true;
         }
@@ -259,7 +257,6 @@ class MathProblemController extends Controller
                 return false;
             }
         }
-        echo 11;
         return false; // syntax error
     }
 
@@ -413,7 +410,6 @@ class MathProblemController extends Controller
         ]);
 
         $isCorrect = $this->isAnswerCorrect($request->input('answer'), $mathProblem);
-        var_dump($isCorrect);
         Auth::user()->mathProblems()->updateExistingPivot($id, ['is_submitted' => true, 'is_correct' => $isCorrect]);
 
         return redirect('/');
