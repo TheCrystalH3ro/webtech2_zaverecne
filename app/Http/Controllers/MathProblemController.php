@@ -122,20 +122,23 @@ class MathProblemController extends Controller
     }
 
     private function isAnswerCorrect($answer, MathProblem $mathProblem) {
-        $solution = trim(
-            preg_replace(
-                ['/\\dfrac/', '/\\tfrac/', '/\\s/'],
-                ['\\frac', '\\frac', ''],
-                str_replace(
-                    ['\\begin{equation*}', '\\end{equation*}'],
-                    '',
-                    $mathProblem->solution
-                )
-            )
+        $modifiedString = str_replace(
+            ['\\begin{equation*}', '\\end{equation*}'],
+            '',
+            $mathProblem->solution
+        );
+        
+        $solution = preg_replace(
+            ['/(\\\\)dfrac/', '/(\\\\)tfrac/', '/\\s/'],
+            ['\\frac', '\\frac', ''],
+            $modifiedString,
+            -1,
         );
         $answer = str_replace(' ', '', $answer);
-        if($answer == $answer) {
-
+        var_dump($answer);
+        var_dump($solution);
+        if($answer == $solution) {
+            return true;
         }
         $solutionOperandsCount = $this->countOperands($solution);
         $answerOperandsCount = $this->countOperands($answer);
@@ -158,7 +161,7 @@ class MathProblemController extends Controller
                                 }
                                 $solutionOperation = substr($solution, $j + 1, $closingBracketIndexSolution);
                                 $solutionNumbers = $this->extractNumbersFromFrac($solutionOperation);
-                                $answerOperation = substr($answer, $answerPosition + 1, $closingBracketIndexAnswer);
+                                $answerOperation = substr($answer, $answerPosition, $closingBracketIndexAnswer);
                                 $answerNumbers = $this->extractNumbersFromFrac($answerOperation);
                                 if (count($solutionNumbers) === count($answerNumbers)) {
                                     $answerDivisor = 0;
@@ -166,14 +169,14 @@ class MathProblemController extends Controller
                                     $solutionDivisor = 0;
                                     $solutionCount = 0;
                                     for ($n = 0; $n < count($solutionNumbers); $n++) {
-                                        if (floor($solutionNumbers[$n] / $answerNumbers[$n]) === $solutionNumbers[$n] / $answerNumbers[$n]) {
+                                        if (floor($solutionNumbers[$n] / $answerNumbers[$n]) === (float)$solutionNumbers[$n] / $answerNumbers[$n]) {
                                             if ($n > 0 && $answerDivisor != $solutionNumbers[$n] / $answerNumbers[$n]) {
                                                 break;
                                             }
                                             $answerDivisor = $solutionNumbers[$n] / $answerNumbers[$n];
                                             $answerCount++;
                                         }
-                                        if (floor($answerNumbers[$n] / $solutionNumbers[$n]) === $answerNumbers[$n] / $solutionNumbers[$n]) {
+                                        if (floor($answerNumbers[$n] / $solutionNumbers[$n]) === (float)$answerNumbers[$n] / $solutionNumbers[$n]) {
                                             if ($n > 0 && $solutionDivisor != $answerNumbers[$n] / $solutionNumbers[$n]) {
                                                 break;
                                             }
@@ -198,8 +201,8 @@ class MathProblemController extends Controller
                     } elseif ($solution[$i] === '^') {
                         if ($solution[$i + 1] === '{') {
                             $closingBracketIndex = $this->findClosingBracketIndex($solution, $i + 1);
-                                        if ($closingBracketIndex == -1) {
-                                return false; // syntax error
+                                if ($closingBracketIndex == -1) {
+                                    return false; // syntax error
                             }
                             $i = $closingBracketIndex;
                             $answerPosition = $closingBracketIndex + 1;
@@ -214,7 +217,6 @@ class MathProblemController extends Controller
                         }
                         $correctCount++;
                     } elseif (!is_numeric($solution[$i])) {
-                        // todo: if solution has number but in answer is \frac it can be same after division of frac
                         $number = '' . $solution[$i];
                         for ($o = $i + 1; $o < strlen($solution); $o++) {
                             if (is_numeric($solution[$o])) {
@@ -257,6 +259,7 @@ class MathProblemController extends Controller
                 return false;
             }
         }
+        echo 11;
         return false; // syntax error
     }
 
@@ -292,7 +295,7 @@ class MathProblemController extends Controller
                 if ($operation[$k + 1] === '{') {
                     $closingBracketIndex2 = $this->findClosingBracketIndex($operation, $k + 1);
                     if ($closingBracketIndex2 == -1) {
-                        return false; // syntax error
+                        return array(); // syntax error
                     }
                     $k = $closingBracketIndex2;
                 } elseif (preg_match('/[+\-0-9a-zA-Z]/', $operation[$k + 1])) {
@@ -321,7 +324,7 @@ class MathProblemController extends Controller
                     if ($input[$j] === '{') {
                         $closingBracketIndex = $this->findClosingBracketIndex($input, $j);
                         if ($closingBracketIndex == -1) {
-                            return false; // syntax error
+                            return -1; // syntax error
                         }
                         $i = $closingBracketIndex;
                         $count++;
@@ -332,7 +335,7 @@ class MathProblemController extends Controller
                 if ($input[$i + 1] === '{') {
                     $closingBracketIndex = $this->findClosingBracketIndex($input, $i + 1);
                     if ($closingBracketIndex == -1) {
-                        return false; // syntax error
+                        return -1; // syntax error
                     }
                     $i = $closingBracketIndex;
                 } elseif (preg_match('/[a-zA-Z0-9]/', $input[$i + 1])) {
@@ -372,6 +375,9 @@ class MathProblemController extends Controller
                 $counter++;
             } elseif ($input[$i] === "}") {
                 if ($counter === 0) {
+                    if($i === strlen($input) - 1) {
+                        return $i;
+                    }
                     if ($input[$i + 1] === "{") {
                         $i++;
                         continue;
@@ -407,7 +413,7 @@ class MathProblemController extends Controller
         ]);
 
         $isCorrect = $this->isAnswerCorrect($request->input('answer'), $mathProblem);
-
+        var_dump($isCorrect);
         Auth::user()->mathProblems()->updateExistingPivot($id, ['is_submitted' => true, 'is_correct' => $isCorrect]);
 
         return redirect('/');
