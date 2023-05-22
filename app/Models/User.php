@@ -78,4 +78,21 @@ class User extends Authenticatable
             $query->where('name', Role::$STUDENT);
         });
     }
+
+    public function getPoints() {
+
+        $points = 0;
+
+        foreach($this->submittedMathProblems()->withPivot('is_correct')->get() as $mathProblem) {
+
+            if(!$mathProblem->pivot->is_correct) {
+                continue;
+            }
+
+            $points += $mathProblem->file->points;
+
+        }
+
+        return $points;
+    }
 }

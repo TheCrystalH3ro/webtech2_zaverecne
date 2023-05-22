@@ -78,6 +78,8 @@ Route::middleware(['auth', 'teacher'])->group(function() {
     Route::get('/student/{id}/sets', [StudentController::class, 'manageSets'])->name('student.sets');
     Route::post('/student/{id}/sets', [StudentController::class, 'assignSet']);
     Route::delete('/student/{id}/sets/{set}', [StudentController::class, 'unassignSet'])->name('student.sets.unassign');
+
+    Route::get('/students', [StudentController::class, 'index'])->name('student.index');
 });
 
 Route::middleware(['auth', 'student'])->group(function() {

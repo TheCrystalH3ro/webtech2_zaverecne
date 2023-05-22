@@ -18,6 +18,15 @@ class StudentController extends Controller
         ]);
     }
 
+    public function index() {
+
+        $students = User::students()->get();
+
+        return view('student.index', [
+            'students' => $students
+        ]);
+    }
+
     public function show(Request $request, $id) {
 
         $user = User::findOrFail($id);
