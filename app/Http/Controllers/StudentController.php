@@ -38,6 +38,17 @@ class StudentController extends Controller
         ]);
     }
 
+    public function showAnswers(Request $request, $id) {
+
+        $user = User::findOrFail($id);
+
+        abort_if($user->role->name != Role::$STUDENT, 404);
+
+        return view('student.answers', [
+            'student' => $user
+        ]);
+    }
+
     public function manageSets(Request $request, $id) {
 
         $user = User::findOrFail($id);

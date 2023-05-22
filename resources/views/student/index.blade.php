@@ -12,7 +12,7 @@
     </thead>
     <tbody>
         @foreach ($students as $student)
-            <tr>
+            <tr data-id="{{ $student->id }}">
                 <td>{{ $student->id }}</td>
                 <td>{{ $student->firstname }}</td>
                 <td>{{ $student->lastname }}</td>
@@ -42,6 +42,18 @@
             buttons: [
                 'csv'
             ]
+        });
+
+        $("#students-table tbody tr").click((event) => {
+            let element = $(event.currentTarget);
+
+            let id = element.data('id');
+
+            let url = "{{ route('student.view', 'student_id') }}";
+
+            url = url.replace("student_id", id);
+
+            window.location = url;
         });
     });
 </script>

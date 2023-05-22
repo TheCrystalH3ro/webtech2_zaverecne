@@ -66,7 +66,10 @@ class User extends Authenticatable
     }
 
     public function submittedMathProblems() {
-        return $this->mathProblems()->wherePivot('is_submitted', true);
+        return $this->mathProblems()
+                    ->withPivot('is_correct')
+                    ->withPivot('answer')
+                    ->wherePivot('is_submitted', true);
     }
 
     public function unsubmittedMathProblems() {
@@ -83,7 +86,7 @@ class User extends Authenticatable
 
         $points = 0;
 
-        foreach($this->submittedMathProblems()->withPivot('is_correct')->get() as $mathProblem) {
+        foreach($this->submittedMathProblems as $mathProblem) {
 
             if(!$mathProblem->pivot->is_correct) {
                 continue;
