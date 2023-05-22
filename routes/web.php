@@ -71,10 +71,13 @@ Route::middleware(['auth', 'teacher'])->group(function() {
     Route::delete('/sets/{id}/unassign/{user}', [FileController::class, 'unassign'])->name('sets.unassign');
 
     Route::get('/student/{id}', [StudentController::class, 'show'])->name('student.view');
+    Route::get('/student/{id}/answers', [StudentController::class, 'showAnswers'])->name('student.answers');
 
     Route::get('/student/{id}/sets', [StudentController::class, 'manageSets'])->name('student.sets');
     Route::post('/student/{id}/sets', [StudentController::class, 'assignSet']);
     Route::delete('/student/{id}/sets/{set}', [StudentController::class, 'unassignSet'])->name('student.sets.unassign');
+
+    Route::get('/students', [StudentController::class, 'index'])->name('student.index');
 });
 
 Route::middleware(['auth', 'student'])->group(function() {

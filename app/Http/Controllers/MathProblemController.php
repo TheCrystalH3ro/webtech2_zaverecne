@@ -409,8 +409,11 @@ class MathProblemController extends Controller
             'answer' => 'required|string'
         ]);
 
-        $isCorrect = $this->isAnswerCorrect($request->input('answer'), $mathProblem);
-        Auth::user()->mathProblems()->updateExistingPivot($id, ['is_submitted' => true, 'is_correct' => $isCorrect]);
+        $answer = $request->input('answer');
+
+        $isCorrect = $this->isAnswerCorrect($answer, $mathProblem);
+
+        Auth::user()->mathProblems()->updateExistingPivot($id, ['is_submitted' => true, 'is_correct' => $isCorrect, 'answer' => $answer]);
 
         return redirect('/');
     }
