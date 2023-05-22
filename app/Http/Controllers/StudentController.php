@@ -18,6 +18,15 @@ class StudentController extends Controller
         ]);
     }
 
+    public function index() {
+
+        $students = User::students()->get();
+
+        return view('student.index', [
+            'students' => $students
+        ]);
+    }
+
     public function show(Request $request, $id) {
 
         $user = User::findOrFail($id);
@@ -25,6 +34,17 @@ class StudentController extends Controller
         abort_if($user->role->name != Role::$STUDENT, 404);
 
         return view('student.single', [
+            'student' => $user
+        ]);
+    }
+
+    public function showAnswers(Request $request, $id) {
+
+        $user = User::findOrFail($id);
+
+        abort_if($user->role->name != Role::$STUDENT, 404);
+
+        return view('student.answers', [
             'student' => $user
         ]);
     }
