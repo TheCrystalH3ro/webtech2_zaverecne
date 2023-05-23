@@ -3,6 +3,8 @@
 @section('content')
 
     <div class="content min-h-screen w-100">
+
+        <h1>{{ __('Upload new images') }}</h1>
     
         <form action="{{ route('upload.images') }}" method="post" enctype="multipart/form-data">
             @csrf
