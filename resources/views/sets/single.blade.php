@@ -8,7 +8,7 @@
 
         <div class="d-flex gap-2">
 
-            <a href="{{ route('sets.assign', ["id" => $set->id]) }}" class="btn btn-secondary   ">{{  __('ASSING') }}</a>
+            <a href="{{ route('sets.assign', ["id" => $set->id]) }}" class="btn btn-secondary   ">{{  __('ASSIGN') }}</a>
             <a href="{{ route('sets.edit', ["id" => $set->id]) }}" class="btn btn-info">{{ __('EDIT') }}</a>
             <a href="{{ route('sets.download', ["id" => $set->id]) }}" class="btn btn-success" target="_blank">{{  __('DOWNLOAD') }}</a>
 
