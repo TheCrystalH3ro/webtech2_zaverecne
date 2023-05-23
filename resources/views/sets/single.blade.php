@@ -3,7 +3,7 @@
 @section('content')
 
     <div class="content min-h-screen w-100">
-    
+
         <h1>{{ $set->getTitle() }}</h1>
 
         <div class="d-flex gap-2">
@@ -11,7 +11,7 @@
             <a href="{{ route('sets.assign', ["id" => $set->id]) }}" class="btn btn-secondary   ">{{  __('ASSING') }}</a>
             <a href="{{ route('sets.edit', ["id" => $set->id]) }}" class="btn btn-info">{{ __('EDIT') }}</a>
             <a href="{{ route('sets.download', ["id" => $set->id]) }}" class="btn btn-success" target="_blank">{{  __('DOWNLOAD') }}</a>
-            
+
             <form action="{{ route('sets.destroy', ["id" => $set->id]) }}" method="post">
                 @csrf
                 @method('DELETE')
@@ -38,5 +38,13 @@
         @endforeach
 
     </div>
+
+@endsection
+
+@section('scripts')
+    @parent
+
+    <script src="https://cdn.jsdelivr.net/npm/evaluatex@2.2.0/dist/evaluatex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
 
 @endsection

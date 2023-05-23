@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    
+
     <div class="content min-h-screen">
 
         <h1>{{ $student->firstname }} {{ $student->lastname }}</h1>
@@ -30,6 +30,14 @@
 
         @endforeach
 
-    </div>    
-    
+    </div>
+
+@endsection
+
+@section('scripts')
+    @parent
+
+    <script src="https://cdn.jsdelivr.net/npm/evaluatex@2.2.0/dist/evaluatex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+
 @endsection
