@@ -10,7 +10,7 @@
 
         <hr>
 
-        <div class="mb-3">
+        <div class="mb-3 d-flex gap-2">
             <a href="{{ route('student.sets', ['id' => $student->id]) }}" class="btn btn-outline-light">{{ __('Assign problem sets') }}</a>
             <a href="{{ route('student.answers', ['id' => $student->id]) }}" class="btn btn-outline-light">{{ __('Submitted problems') }}</a>
         </div>
