@@ -8,7 +8,7 @@
         <title>{{ __(config('app.name', 'Zaverečné zadanie')) }}</title>
 
         <!-- Scripts -->
-        @vite(['resources/css/bootstrap.min.css', 'resources/css/app.css', 'resources/css/style.css', 'resources/js/app.js'])
+        @vite(['resources/css/bootstrap.min.css', 'resources/css/style.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen">
