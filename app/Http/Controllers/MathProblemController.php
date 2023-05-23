@@ -10,18 +10,6 @@ use Illuminate\Support\Facades\Auth;
 
 class MathProblemController extends Controller
 {
-    //
-    public function create(Request $request)
-    {
-
-        $dirPath = storage_path('app/problems');
-        $filePath = $dirPath . '/odozva02pr.tex';
-        $content = file_get_contents($filePath);
-
-        // var_dump($content);
-
-        $this->store(1, $content);
-    }
 
     public function store($fileId, $content)
     {
@@ -76,8 +64,6 @@ class MathProblemController extends Controller
                 'solution' => trim($solutionContent),
                 'file_id' => $fileId
             ]);
-
-            dump($mathProblem);
         }
     }
 
