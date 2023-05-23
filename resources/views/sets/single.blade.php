@@ -1,26 +1,42 @@
-<h1>{{ $set->getTitle() }}</h1>
-<a href="{{ route('sets.edit', ["id" => $set->id]) }}">{{ __('Edit problem set') }}</a>
-<a href="{{ route('sets.download', ["id" => $set->id]) }}" target="_blank">{{  __('Download problem set') }}</a>
-<a href="{{ route('sets.assign', ["id" => $set->id]) }}">{{  __('Assign to student') }}</a>
-<form action="{{ route('sets.destroy', ["id" => $set->id]) }}" method="post">
-    @csrf
-    @method('DELETE')
-    <button type="submit">{{ __('Delete problem set') }}</button>
-</form>
+@extends('layouts.app')
 
-<hr>
+@section('content')
 
-<h2>{{ __('Problems') }}</h2>
+    <div class="content min-h-screen w-100">
+    
+        <h1>{{ $set->getTitle() }}</h1>
 
-@foreach ($set->mathProblems as $mathProblem)
-    <div>
-        <h4>Zadanie:</h4>
-        <p>{{ $mathProblem->task }}</p>
-        @if ($mathProblem->image)
-            <img src="{{ asset('storage/uploadedImg/' . $mathProblem->image) }}" alt="">
-        @endif
-        <h4>Riešenie:</h4>
-        <p>{{ $mathProblem->solution }}</p>
+        <div class="d-flex gap-2">
+
+            <a href="{{ route('sets.assign', ["id" => $set->id]) }}" class="btn btn-secondary   ">{{  __('ASSING') }}</a>
+            <a href="{{ route('sets.edit', ["id" => $set->id]) }}" class="btn btn-info">{{ __('EDIT') }}</a>
+            <a href="{{ route('sets.download', ["id" => $set->id]) }}" class="btn btn-success" target="_blank">{{  __('DOWNLOAD') }}</a>
+            
+            <form action="{{ route('sets.destroy', ["id" => $set->id]) }}" method="post">
+                @csrf
+                @method('DELETE')
+                <button class="btn btn-danger" type="submit">{{ __('DELETE') }}</button>
+            </form>
+
+        </div>
+
         <hr>
+
+        <h2>{{ __('Problems') }}</h2>
+
+        @foreach ($set->mathProblems as $mathProblem)
+            <div>
+                <h4>Zadanie:</h4>
+                <p>{{ $mathProblem->task }}</p>
+                @if ($mathProblem->image)
+                    <img src="{{ asset('storage/uploadedImg/' . $mathProblem->image) }}" alt="">
+                @endif
+                <h4>Riešenie:</h4>
+                <p>{{ $mathProblem->solution }}</p>
+                <hr>
+            </div>
+        @endforeach
+
     </div>
-@endforeach
+
+@endsection
