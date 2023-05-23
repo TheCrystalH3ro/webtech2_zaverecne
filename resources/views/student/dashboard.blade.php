@@ -18,8 +18,8 @@
                         @if ($mathProblem->image)
                             <img src="{{ asset('storage/uploadedImg/' . $mathProblem->image) }}" alt="">
                         @endif
-                        <a href="{{ route('problem.solve', $mathProblem->id) }}">{{ __('Solve') }}</a>
                     </div>
+                    <a href="{{ route('problem.solve', $mathProblem->id) }}" class="btn btn-primary mt-2 mb-3">{{ __('Solve') }}</a>
                 @endforeach
             </div> 
         </div>
@@ -41,5 +41,13 @@
             </div> 
         </div>
     </div>
+
+@endsection
+
+@section('scripts')
+    @parent
+
+    <script src="https://cdn.jsdelivr.net/npm/evaluatex@2.2.0/dist/evaluatex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
 
 @endsection
