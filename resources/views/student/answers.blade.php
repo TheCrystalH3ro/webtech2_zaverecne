@@ -8,3 +8,11 @@
     <p>{{ $mathProblem->pivot->answer }}</p>
     <p>{{ ($mathProblem->pivot->is_correct ? __('Correct') : __('Incorrect')) . ", " . ($mathProblem->pivot->is_correct ? $mathProblem->file->points : "0") . "b" }}</p>
 @endforeach
+
+@section('scripts')
+    @parent
+
+    <script src="https://cdn.jsdelivr.net/npm/evaluatex@2.2.0/dist/evaluatex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+
+@endsection
