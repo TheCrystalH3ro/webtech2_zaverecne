@@ -53,7 +53,7 @@
 
                 <div class="d-flex gap-3 items-center justify-end">
 
-                    <button class="btn btn-primary ml-4">{{ __('REGISTER') }}</button>
+                    <button class="btn btn-primary">{{ __('REGISTER') }}</button>
 
                     <a href="{{ route("login") }}" class="btn btn-outline-primary">{{ __("LOGIN") }}</a>
 

@@ -3,6 +3,10 @@ body {
     background-size: cover;
 }
 
+.navbar {
+    --bs-bg-opacity: 0.2;
+}
+
 .min-h-screen {
     min-height: 100vh;
 }
@@ -32,4 +36,13 @@ body {
 
 select option:disabled[value=""] {
     display: none;
+}
+
+#students-table_wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+#students-table_wrapper .btn {
+    margin-bottom: 2em;
 }

@@ -6,6 +6,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\EditorController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\TeacherController;
 use App\Models\Role;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -23,19 +24,24 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
 
-    if(Auth::check() && Auth::user()->role->name == Role::$STUDENT) {
-        $studentController = new StudentController();
-        return $studentController->dashboard();
+    if(Auth::check()) {
+        if(Auth::user()->role->name == Role::$STUDENT) {
+
+            $studentController = new StudentController();
+            return $studentController->dashboard();
+        }
+
+        if(Auth::user()->role->name == Role::$TEACHER) {
+
+            $teacherController = new TeacherController();
+            return $teacherController->dashboard();
+        }
     }
 
     return view('welcome');
 });
 
 Route::get('/language/{language}', [LanguageController::class, 'changeLanguage']);
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
