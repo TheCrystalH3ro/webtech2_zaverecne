@@ -15,6 +15,10 @@ body {
     width: 100%;
 }
 
+.content {
+    padding-top: 10em;
+}
+
 .welcome,
 .register,
 .login {
@@ -45,4 +49,9 @@ select option:disabled[value=""] {
 
 #students-table_wrapper .btn {
     margin-bottom: 2em;
+}
+
+#students-table tbody tr:hover {
+    background-color: rgba(255,255,255, 0.1)!important;
+    cursor: pointer;
 }

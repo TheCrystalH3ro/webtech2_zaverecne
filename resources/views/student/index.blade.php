@@ -8,7 +8,7 @@
                 {{ __('Students') }}
             </div>
             <div class="card-body">
-                <table id="students-table" class="dataTable table">
+                <table id="students-table" class="dataTable table table-hover">
                     <thead>
                         <tr>
                             <th data-col="0">{{ __('ID') }}</th>

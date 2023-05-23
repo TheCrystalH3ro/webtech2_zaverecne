@@ -9,18 +9,18 @@
             @auth
                 @if(auth()->user()->role->name == App\Models\Role::$TEACHER)
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('student.index') }}">{{ __("Students") }}</a>
+                        <a class="nav-link @if(Request::segment(1) == 'students') active @endif" href="{{ route('student.index') }}">{{ __("Students") }}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('sets.index') }}">{{ __("Sets") }}</a>
+                        <a class="nav-link @if(Request::segment(1) == 'sets') active @endif" href="{{ route('sets.index') }}">{{ __("Sets") }}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('images.index') }}">{{ __("Images") }}</a>
+                        <a class="nav-link @if(Request::segment(1) == 'images') active @endif" href="{{ route('images.index') }}">{{ __("Images") }}</a>
                     </li>
                 @endif    
             @endauth
             <li class="nav-item">
-                <a class="nav-link" href="#">{{ __("Tutorial") }}</a>
+                <a class="nav-link @if(Request::segment(1) == 'tutorial') active @endif" href="#">{{ __("Tutorial") }}</a>
             </li>
         </ul>
         <div class="navbar-nav d-flex ms-auto">

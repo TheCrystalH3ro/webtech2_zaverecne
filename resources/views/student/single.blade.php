@@ -1,18 +1,35 @@
-<h1>{{ $student->firstname }} {{ $student->lastname }}</h1>
+@extends('layouts.app')
 
-<h4>{{ $student->email }}</h4>
+@section('content')
+    
+    <div class="content min-h-screen">
 
-<hr>
+        <h1>{{ $student->firstname }} {{ $student->lastname }}</h1>
 
-<a href="{{ route('student.sets', ['id' => $student->id]) }}">{{ __('Assign problem sets') }}</a>
+        <h4>{{ $student->email }}</h4>
 
-<a href="{{ route('student.answers', ['id' => $student->id]) }}">{{ __('Submitted problems') }}</a>
+        <hr>
 
-<h2>{{ __('Generated problems') }}</h2>
+        <div class="mb-3">
+            <a href="{{ route('student.sets', ['id' => $student->id]) }}" class="btn btn-outline-light">{{ __('Assign problem sets') }}</a>
+            <a href="{{ route('student.answers', ['id' => $student->id]) }}" class="btn btn-outline-light">{{ __('Submitted problems') }}</a>
+        </div>
 
-@foreach ($student->mathProblems as $mathProblem)
-    <p>{{ $mathProblem->task }}</p>
-    @if ($mathProblem->image)
-        <img src="{{ asset('/storage/uploadedImg/' . $mathProblem->image) }}" alt="{{ $mathProblem->id }}">
-    @endif
-@endforeach
+        <h2 class="mb-3">{{ __('Generated problems') }}</h2>
+
+        @foreach ($student->mathProblems as $mathProblem)
+
+            <div class="mb-3">
+
+                <p>{{ $mathProblem->task }}</p>
+                @if ($mathProblem->image)
+                    <img src="{{ asset('/storage/uploadedImg/' . $mathProblem->image) }}" alt="{{ $mathProblem->id }}">
+                @endif
+
+            </div>
+
+        @endforeach
+
+    </div>    
+    
+@endsection
