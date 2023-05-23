@@ -12,13 +12,15 @@ body {
 }
 
 .welcome,
-.register {
+.register,
+.login {
     max-width: 80%;
     margin: 0 auto;
 }
 
 .welcome .btn,
-.register .btn {
+.register .btn,
+.login .btn {
     width: 50%;
     border-radius: 0.7rem;
     font-size: 1rem;

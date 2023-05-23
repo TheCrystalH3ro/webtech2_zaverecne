@@ -1,37 +1,35 @@
-<x-guest-layout>
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
+@extends('layouts.guest')
 
-    <form method="POST" action="{{ route('login') }}">
-        @csrf
 
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required
-                autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+@section('content')
+    <div class="login card border-primary w-100 mb-5">
+        <div class="card-header">
+            {{ __("Login") }}
         </div>
+        <div class="card-body">
+            <form method="POST" action="{{ route('login') }}">
+                @csrf
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
+                <div class="form-group mb-2">
+                    <label for="email" class="text-white text-sm">{{ __('Email') }}</label>
+                    <input type="email" class="form-control mt-1" name="email" value="{{ old('email') }}" required autofocus>
+                    <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                </div>
 
-            <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" required
-                autocomplete="current-password" />
+                <div class="form-group mb-2">
+                    <label for="password" class="text-white text-sm">{{ __('Password') }}</label>
+                    <input type="password" class="form-control mt-1"  name="password" required>
+                    <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                </div>
 
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
+                <div class="d-flex gap-3 items-center justify-end mt-4">
 
-        <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
-                href="{{ route('register') }}">
-                {{ __('Don\'t have an account?') }}
-            </a>
+                    <button class="btn btn-primary">{{ __('LOGIN') }}</button>
 
-            <x-primary-button class="ml-3">
-                {{ __('Log in') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
+                    <a href="{{ route("register") }}" class="btn btn-outline-primary">{{ __("REGISTER") }}</a>
+
+                </div>
+            </form>
+        </div> 
+    </div>
+@endsection
