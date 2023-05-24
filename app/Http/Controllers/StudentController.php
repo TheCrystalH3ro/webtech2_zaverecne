@@ -118,13 +118,13 @@ class StudentController extends Controller
         foreach($request->input('problemSets') as $id) {
 
             if(!$user->availableSets()->find($id)) {
-                return redirect()->back()->withErrors(['problemSets.*' => __('This student can\'t assign problems from this set.')]);
+                return redirect()->back()->withErrors(['problemSets.*' => __('This student can\'t assign tasks from this set.')]);
             }
 
             $problemSet = File::findOrFail($id);
 
             if($problemSet->hasAssignedMathProblem($user)) {
-                return redirect()->back()->withErrors(['problemSets.*' => __('This student has already assigned problem from this file set.')]);
+                return redirect()->back()->withErrors(['problemSets.*' => __('This student has already assigned problem from this set.')]);
             }
 
             $mathProblemController->generate($problemSet, $user);

@@ -47,7 +47,7 @@ class FileController extends Controller
             $fileName = $file->getClientOriginalName();
 
             if(File::where('title', $fileName)->first()) {
-                return redirect()->back()->withErrors(['problemSet' => __('Problem set with this name already exists.')]);
+                return redirect()->back()->withErrors(['problemSet' => __('Task set with this name already exists.')]);
             }
 
             $filePath = $file->storeAs('problems', $fileName);
@@ -95,7 +95,7 @@ class FileController extends Controller
         if($fileName != $problemSet->title) {
 
             if(File::where('title', $fileName)->first()) {
-                return redirect()->back()->withErrors(['title' => __('Problem set with this name already exists.')]);
+                return redirect()->back()->withErrors(['title' => __('Task set with this name already exists.')]);
             }
 
             Storage::move('problems\\' . $problemSet->title, 'problems\\' . $fileName);
@@ -178,7 +178,7 @@ class FileController extends Controller
         $user = User::where('email', $request->input('email'))->first();
 
         if($user->role->name != Role::$STUDENT) {
-            return redirect()->back()->withErrors(['email' => __('User with this email is not a student')]);
+            return redirect()->back()->withErrors(['email' => __('User with this email is not a student.')]);
         }
 
         if($user->sets()->where('id', $id)->exists()) {
