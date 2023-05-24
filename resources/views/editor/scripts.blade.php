@@ -166,8 +166,5 @@
   <script src="/js/editor/menuInteraction.js"></script>
   <script src="/js/editor/equationEditor.js"></script>
   <script src="/js/editor/latexGenerator.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/evaluatex@2.2.0/dist/evaluatex.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
-  <script src="/js/editor/latexAnswer.js" defer></script>
   <link href="/editorResources/Fonts/TeX/font.css" rel="stylesheet" type="text/css" charset="utf-8" />
   <link href="/css/editor/equationEditor.css" rel="stylesheet" type="text/css" charset="utf-8" />
