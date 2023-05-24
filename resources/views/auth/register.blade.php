@@ -1,70 +1,64 @@
-<x-guest-layout>
-    <form method="POST" action="{{ route('register') }}">
-        @csrf
+@extends('layouts.guest')
 
-        <!-- Name -->
-        <div>
-            <x-input-label for="firstname" :value="__('Firstname')" />
-            <x-text-input id="firstname" class="block mt-1 w-full" type="text" name="firstname" :value="old('firstname')" required
-                autofocus autocomplete="firstname" />
-            <x-input-error :messages="$errors->get('firstname')" class="mt-2" />
+
+@section('content')
+    <div class="register card border-primary     w-100">
+        <div class="card-header">
+            {{ __("Register") }}
         </div>
+        <div class="card-body">
+            <form method="POST" action="{{ route('register') }}">
+                @csrf
 
-        <div class="mt-4">
-            <label for="lastname" class="block font-medium text-sm text-gray-700">{{  __('Lastname')}}</label>
-            <input type="text" name="lastname" id="lastname" class="form-input rounded-md shadow-sm mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300" value="{{ old('lastname') }}" required autocomplete="lastname">
-            @error('lastname')
-                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-            @enderror
+                <div class="form-group mb-2">
+                    <label for="firstname" class="text-white text-sm">{{ __('Firstname') }}</label>
+                    <input type="text" class="form-control mt-1" name="firstname" value="{{ old('firstname') }}" required autofocus>
+                    <x-input-error :messages="$errors->get('firstname')" class="mt-2" />
+                </div>
+
+                <div class="form-group mb-2">
+                    <label for="lastname" class="text-white text-sm">{{ __('Lastname') }}</label>
+                    <input type="text" class="form-control mt-1" name="lastname" value="{{ old('lastname') }}" required>
+                    <x-input-error :messages="$errors->get('lastname')" class="mt-2" />
+                </div>
+
+                <div class="form-group mb-2">
+                    <label for="email" class="text-white text-sm">{{ __('Email') }}</label>
+                    <input type="email" class="form-control mt-1" name="email" value="{{ old('email') }}" required>
+                    <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                </div>
+
+                <div class="form-group mb-2">
+                    <label for="password" class="text-white text-sm">{{ __('Password') }}</label>
+                    <input type="password" class="form-control mt-1"  name="password" required>
+                    <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                </div>
+
+                <div class="form-group mb-2">
+                    <label for="password_confirmation" class="text-white text-sm">{{ __('Confirm Password') }}</label>
+                    <input type="password" class="form-control mt-1"  name="password_confirmation" required>
+                    <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
+                </div>
+
+                <div class="form-group mb-2">
+                    <label for="role" class="text-white text-sm">{{ __('Role') }}</label>
+                    <select name="role" id="role" class="form-select mt-1">
+                        <option value="" disabled selected></option>
+                        @foreach (App\Models\Role::get() as $role)
+                            <option value="{{ $role->id }}">{{ $role->name }}</option>
+                        @endforeach
+                    </select>
+                    <x-input-error :messages="$errors->get('role')" class="mt-2" />
+                </div>
+
+                <div class="d-flex gap-3 items-center justify-end">
+
+                    <button class="btn btn-primary">{{ __('REGISTER') }}</button>
+
+                    <a href="{{ route("login") }}" class="btn btn-outline-primary">{{ __("LOGIN") }}</a>
+
+                </div>
+            </form>
         </div>
-
-        <!-- Email Address -->
-        <div class="mt-4">
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')"
-                required autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
-
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
-
-            <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" required
-                autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
-
-        <!-- Confirm Password -->
-        <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
-
-            <x-text-input id="password_confirmation" class="block mt-1 w-full" type="password"
-                name="password_confirmation" required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-        </div>
-
-        <div class="mt-4">
-            <x-input-label for="role" :value="__('Role')" />
-            <select name="role" id="role" class="w-full py-1 bg-white dark:bg-gray-700">
-                <option value="" disabled selected></option>
-                @foreach (App\Models\Role::get() as $role)
-                    <option value="{{ $role->id }}">{{ $role->name }}</option>
-                @endforeach
-            </select>
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
-                href="{{ route('login') }}">
-                {{ __('Already registered?') }}
-            </a>
-
-            <x-primary-button class="ml-4">
-                {{ __('Register') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
+    </div>    
+@endsection

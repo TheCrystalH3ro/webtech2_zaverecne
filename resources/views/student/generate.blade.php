@@ -1,23 +1,38 @@
-<form action="{{ route('problems.generate') }}" method="POST">
-    @csrf
+@extends('layouts.app')
 
-    <ul>
-    @forelse ($student->availableSets as $set)
-        <li>
-            <label for="problemSet-{{ $set->id }}">{{ $set->getTitle() }}</label>
-            <input type="checkbox" name="problemSets[]" id="problemSet-{{ $set->id }}" value="{{ $set->id }}">
-        </li>
-    @empty
-        <li>
-            <p>{{ __("You don't have any available problem sets.") }}</p>
-        </li>
-    @endforelse
-    </ul>
-    @error('problemSets.*')
-        {{ $message }}
-    @enderror
+@section('content')
+    
+    <div class="content min-h-screen w-100">
 
-    <button type="submit" @if($student->availableSets->isEmpty()) disabled @endif>{{ __('Generate math problem') }}</button>
+        <h1>{{ __('Generate math problems') }}</h1>
 
-</form>
+        <form action="{{ route('problems.generate') }}" method="POST">
+            @csrf
 
+            <ul class="list-unstyled set-list">
+            @forelse ($student->availableSets as $set)
+                <li>
+                    <label for="problemSet-{{ $set->id }}" class="w-100">
+                        <div class="alert alert-dismissible alert-danger d-flex">
+                            {{ $set->getTitle() }}
+                            <input class="form-check-input ms-auto" type="checkbox" name="problemSets[]" id="problemSet-{{ $set->id }}" value="{{ $set->id }}">
+                        </div>  
+                    </label>
+                </li>
+            @empty
+                <li>
+                    <h3>{{ __("You don't have any available problem sets.") }}</h3>
+                </li>
+            @endforelse
+            </ul>
+            @error('problemSets.*')
+                {{ $message }}
+            @enderror
+
+            <button class="btn btn-outline-light" type="submit" @if($student->availableSets->isEmpty()) disabled @endif>{{ __('GENERATE') }}</button>
+
+        </form>
+
+    </div>
+
+@endsection

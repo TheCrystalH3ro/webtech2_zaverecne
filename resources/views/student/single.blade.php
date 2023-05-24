@@ -1,18 +1,45 @@
-<h1>{{ $student->firstname }} {{ $student->lastname }}</h1>
+@extends('layouts.app')
 
-<h4>{{ $student->email }}</h4>
+@section('content')
 
-<hr>
+    <div class="content min-h-screen">
 
-<a href="{{ route('student.sets', ['id' => $student->id]) }}">{{ __('Assign problem sets') }}</a>
+        <h1>{{ $student->firstname }} {{ $student->lastname }}</h1>
 
-<a href="{{ route('student.answers', ['id' => $student->id]) }}">{{ __('Submitted problems') }}</a>
+        <h4>{{ $student->email }}</h4>
 
-<h2>{{ __('Generated problems') }}</h2>
+        <hr>
 
-@foreach ($student->mathProblems as $mathProblem)
-    <p>{{ $mathProblem->task }}</p>
-    @if ($mathProblem->image)
-        <img src="{{ asset('/storage/uploadedImg/' . $mathProblem->image) }}" alt="{{ $mathProblem->id }}">
-    @endif
-@endforeach
+        <div class="mb-3 d-flex gap-2">
+            <a href="{{ route('student.sets', ['id' => $student->id]) }}" class="btn btn-outline-light">{{ __('Assign problem sets') }}</a>
+            <a href="{{ route('student.answers', ['id' => $student->id]) }}" class="btn btn-outline-light">{{ __('Submitted problems') }}</a>
+        </div>
+
+        <h2 class="mb-3">{{ __('Generated problems') }}</h2>
+
+        @foreach ($student->mathProblems as $mathProblem)
+
+            <div class="card mt-4 mb-4">
+                <div class="card-body">
+
+                    <p>{{ $mathProblem->task }}</p>
+                    @if ($mathProblem->image)
+                        <img class="img-fluid" src="{{ asset('/storage/uploadedImg/' . $mathProblem->image) }}" alt="{{ $mathProblem->id }}">
+                    @endif
+
+                </div>
+            </div>
+
+        @endforeach
+
+    </div>
+
+@endsection
+
+@section('scripts')
+    @parent
+
+    <script src="https://cdn.jsdelivr.net/npm/evaluatex@2.2.0/dist/evaluatex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+
+@endsection

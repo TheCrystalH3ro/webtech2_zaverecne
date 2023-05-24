@@ -108,6 +108,7 @@ class StudentController extends Controller
     public function generateMathProblems(Request $request) {
 
         $request->validate([
+            'problemSets' => 'required|array',
             'problemSets.*' => 'integer|exists:files,id'
         ]);
 
