@@ -14,7 +14,7 @@
                 @error('images.*')
                     {{ $message }}
                 @enderror
-                <button class="btn btn-secondary" type="submit">Upload</button>
+                <button class="btn btn-secondary" type="submit">{{  __('Upload') }}</button>
             </div>
 
         </form>

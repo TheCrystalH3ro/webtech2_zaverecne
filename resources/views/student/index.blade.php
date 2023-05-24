@@ -14,8 +14,8 @@
                             <th data-col="0">{{ __('ID') }}</th>
                             <th data-col="1">{{ __('Firstname') }}</th>
                             <th data-col="2">{{ __('Lastname') }}</th>
-                            <th data-col="3">{{ __('Num. of submitted problems') }}</th>
-                            <th data-col="4">{{ __('Num. of handed in problems') }}</th>
+                            <th data-col="3">{{ __('Num. of generated tasks') }}</th>
+                            <th data-col="4">{{ __('Num. of handed in tasks') }}</th>
                             <th data-col="5">{{ __('Points') }}</th>
                         </tr>
                     </thead>

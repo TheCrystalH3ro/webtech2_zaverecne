@@ -4,7 +4,7 @@
     
     <div class="content min-h-screen w-100">
 
-        <h1>Zadanie príkladu</h1>
+        <h1>{{ __("Problem's task") }}</h1>
         <div id="content" class="mt-4 mb-4">
             <p>{{ $mathProblem->task }}</p>
             @if ($mathProblem->image)

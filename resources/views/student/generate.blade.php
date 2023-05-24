@@ -4,7 +4,7 @@
     
     <div class="content min-h-screen w-100">
 
-        <h1>{{ __('Generate math problems') }}</h1>
+        <h1>{{ __('Generate math tasks') }}</h1>
 
         <form action="{{ route('problems.generate') }}" method="POST">
             @csrf
@@ -21,7 +21,7 @@
                 </li>
             @empty
                 <li>
-                    <h3>{{ __("You don't have any available problem sets.") }}</h3>
+                    <h3>{{ __("You don't have any available task sets.") }}</h3>
                 </li>
             @endforelse
             </ul>

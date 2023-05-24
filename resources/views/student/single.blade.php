@@ -11,11 +11,11 @@
         <hr>
 
         <div class="mb-3 d-flex gap-2">
-            <a href="{{ route('student.sets', ['id' => $student->id]) }}" class="btn btn-outline-light">{{ __('Assign problem sets') }}</a>
-            <a href="{{ route('student.answers', ['id' => $student->id]) }}" class="btn btn-outline-light">{{ __('Submitted problems') }}</a>
+            <a href="{{ route('student.sets', ['id' => $student->id]) }}" class="btn btn-outline-light">{{ __('Assign task sets') }}</a>
+            <a href="{{ route('student.answers', ['id' => $student->id]) }}" class="btn btn-outline-light">{{ __('Submitted tasks') }}</a>
         </div>
 
-        <h2 class="mb-3">{{ __('Generated problems') }}</h2>
+        <h2 class="mb-3">{{ __('Generated tasks') }}</h2>
 
         @foreach ($student->mathProblems as $mathProblem)
 

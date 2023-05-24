@@ -12,7 +12,7 @@
             @error('problemSet')
                 {{ $message }}
             @enderror
-            <button class="btn btn-primary" type="submit">Upload</button>
+            <button class="btn btn-primary" type="submit">{{ __('Upload') }}</button>
         </form>
 
         <ul class="list-unstyled p-0">

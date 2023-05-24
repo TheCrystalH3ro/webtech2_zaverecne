@@ -1,11 +1,11 @@
 <div class="mt-3 mb-3">
 
-  <h2>{{ __('Instructions:') }}</h2>
-  <p>Vsetky cleny ktore mozu byt zlucene tak zluc(zly priklad: 4x+2x+10 => spravne: 6x+10)</p>
-  <p>V pripade odpovede typu rovnice pis premennnu vzdy na lavejk strane(napr. x=10)</p>
-  <p>Do riesenia nepridavat zbytocne 1tky, alebo upravy ktore urobia iba vizualne zmeny(zle priklady: 10x-1+1, x^1+5, atd.)</p>
-  <p>V pripade odpovede kde je potrebne napisat nejaku premennu, pouzi iba jednopismenkove hodnoty</p>
-  <p>V pripade ze vysledok je hodnota a obsahuje mocniny, pis hodnoty s najvacsou mocninou ako prve(napr. x^4-x^2-3)</p>
+  <h2>{{ __('Instructions') }}:</h2>
+  <p>{{ __('All members that can be combined should be combined (wrong example: 4x+2x+10 => correct: 6x+10)') }}</p>
+  <p>{{ __('In the case of an equation type answer, always write the variable on the left side (e.g. x=10)') }}</p>
+  <p>{{ __('Do not add unnecessary 1s to the solution, or edits that will only make visual changes (bad examples: 10x-1+1, x^1+5, etc.)') }}</p>
+  <p>{{ __('In the case of an answer where it is necessary to write a variable, use only one-letter values') }}</p>
+  <p>{{ __('If the result is a value and contains powers, write the value with the highest power first (e.g. x^4-x^2-3)') }}</p>
 
 </div>
 
@@ -314,7 +314,7 @@
             <img class="menuItem" id="hatAccentButton" src="/editorResources/MenuImages/png/hatAccent.png">
             <img class="menuItem" id="vectorAccentButton" src="/editorResources/MenuImages/png/vectorAccent.png">
             <img class="menuItem" id="barAccentButton" src="/editorResources/MenuImages/png/barAccent.png">
-            <div class="mb-2">rows: <input class="form-control" type="text" id="rows" /><br> cols: <input class="form-control" type="text" id="cols" /></div>
+            <div class="mb-2">{{__('rows')}}: <input class="form-control" type="text" id="rows" /><br> {{__('cols')}}: <input class="form-control" type="text" id="cols" /></div>
             <div class="menuItem btn btn-outline-dark" id="matrixButton" style="font-size: 35px; padding: 5px 5px; display: inline-block">{{ __('Matrix') }}</div>
         </div>
     </div>
