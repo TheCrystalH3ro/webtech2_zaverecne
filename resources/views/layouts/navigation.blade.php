@@ -23,15 +23,17 @@
                 <a class="nav-link @if(Request::segment(1) == 'tutorial') active @endif" href="#">{{ __("Tutorial") }}</a>
             </li>
         </ul>
-        <div class="navbar-nav d-flex ms-auto">
-            <a href="{{ url('/language/en') }}" class="@if(app()->isLocale('en')) active @endif nav-link">en</a>
-            <span class="nav-link">|</span>
-            <a href="{{ url('/language/sk') }}" class="@if(app()->isLocale('sk')) active @endif nav-link">sk</a>
+        <div class="navbar-nav d-flex ms-auto align-items-lg-center">
+            <div class="flex-row pe-2 gap-1 gap-lg-0 d-flex">
+                <a href="{{ url('/language/en') }}" class="@if(app()->isLocale('en')) active @endif nav-link">en</a>
+                <span class="nav-link text-white">|</span>
+                <a href="{{ url('/language/sk') }}" class="@if(app()->isLocale('sk')) active @endif nav-link">sk</a>
+            </div>
             @auth
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
 
-                    <button class="btn btn-secondary">{{ __('Log Out') }}</button>
+                    <button class="btn btn-outline-light">{{ __('Log Out') }}</button>
                 </form>
             @else
                 <a href="{{ route('login') }}" class="btn btn-outline-light ms-2">{{ __('Login') }}</a>

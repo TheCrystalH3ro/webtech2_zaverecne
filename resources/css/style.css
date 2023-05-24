@@ -3,9 +3,9 @@ body {
     background-size: cover;
 }
 
-.navbar {
+/* .navbar {
     --bs-bg-opacity: 0.2;
-}
+} */
 
 .min-h-screen {
     min-height: 100vh;
@@ -104,6 +104,8 @@ select option:disabled[value=""] {
 
 .tab-links {
     padding-left: 0 !important;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .outerTab a:hover,
@@ -120,4 +122,9 @@ select option:disabled[value=""] {
 
 .MJX-TEX {
     margin: 0 1em !important;
+}
+
+.navbar .navbar-nav .btn:hover {
+    background-color: rgba(255,255,255,0.2);
+    color: white;
 }

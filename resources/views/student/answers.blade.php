@@ -7,25 +7,29 @@
         <h1>{{ __('Submitted math problems') }}</h1>
         @foreach ($student->submittedMathProblems as $mathProblem)
 
-            <div class="mb-3">
-                <p>{{ $mathProblem->task }}</p>
+            <div class="card mt-4 mb-4">
+                <div class="card-body">
 
-                @if ($mathProblem->image)
-                    <img class="img-fluid" src="{{ asset('/storage/uploadedImg/' . $mathProblem->image) }}" alt="{{ $mathProblem->id }}">
-                @endif
+                    <div class="mb-3">
+                        <p>{{ $mathProblem->task }}</p>
+            
+                        @if ($mathProblem->image)
+                            <img class="img-fluid" src="{{ asset('/storage/uploadedImg/' . $mathProblem->image) }}" alt="{{ $mathProblem->id }}">
+                        @endif
+                    </div>
+            
+                    <div class="d-flex gap-1">
+            
+                        <p>{{ __('STUDENT\'S ANSWER:') }}</p>
+                        <p>{{ $mathProblem->pivot->answer }}</p>
+            
+                    </div>
+            
+                    <p class="badge bg-primary">{{ ($mathProblem->pivot->is_correct ? __('CORRECT') : __('INCORRECT')) . ", " . ($mathProblem->pivot->is_correct ? $mathProblem->file->points : "0") . "b" }}</p>
+
+                </div>
             </div>
-
-            <div class="d-flex gap-1">
-
-                <p>{{ __('STUDENT\'S ANSWER:') }}</p>
-                <p>{{ $mathProblem->pivot->answer }}</p>
-
-            </div>
-
-            <p class="badge bg-primary">{{ ($mathProblem->pivot->is_correct ? __('CORRECT') : __('INCORRECT')) . ", " . ($mathProblem->pivot->is_correct ? $mathProblem->file->points : "0") . "b" }}</p>
-
-            <hr>
-
+        
         @endforeach
 
     </div>

@@ -13,7 +13,7 @@
     <body class="font-sans antialiased">
         <div class="min-h-screen">
             <nav class="navbar navbar-dark w-100 d-flex fixed-top">
-                <div class="navbar-nav ms-auto flex-row pe-2 d-flex gap-1">
+                <div class="navbar-nav ms-auto flex-row pe-3 d-flex gap-1">
                     <a href="{{ url('/language/en') }}" class="@if(app()->isLocale('en')) active @endif nav-link">en</a>
                     <span class="nav-link text-white">|</span>
                     <a href="{{ url('/language/sk') }}" class="@if(app()->isLocale('sk')) active @endif nav-link">sk</a>

@@ -51,6 +51,7 @@
         $(document).ready(function() {
             $('#students-table').DataTable({
                 dom: 'Bfrtip',
+                responsive: true,
                 columnDefs: [
                     { targets: [3], orderData: [3, 2] },
                     { targets: [4], orderData: [4, 2] },
