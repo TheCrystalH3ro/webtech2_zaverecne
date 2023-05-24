@@ -1,76 +1,41 @@
-<h1>Zadanie príkladu</h1>
-<div id="content">
+@extends('layouts.app')
 
-</div>
+@section('content')
+    
+    <div class="content min-h-screen w-100">
 
-<script>
-    window.image_path = '{{ asset("storage/uploadedImg") }}' + '/';
-</script>
+        <h1>Zadanie príkladu</h1>
+        <div id="content">
+            <p>{{ $mathProblem->task }}</p>
+            @if ($mathProblem->image)
+                <img src="{{ asset('storage/uploadedImg/' . $mathProblem->image) }}" alt="" class="mb-3">
+            @endif
+        </div>
 
-<script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
-<script src="{{ asset('mathdisplay_tmp/script.js') }}"></script>
+        <script>
+            window.image_path = '{{ asset("storage/uploadedImg") }}' + '/';
+        </script>
 
-<form id="answerForm" action="{{ route("problem.solve", $mathProblem->id) }}" method="post">
-    @csrf
-    <input type="hidden" name="answer">
-</form>
+        <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+        <script src="{{ asset('mathdisplay_tmp/script.js') }}"></script>
 
-@include('editor.scripts')
-@include('editor.component')
+        <form id="answerForm" action="{{ route("problem.solve", $mathProblem->id) }}" method="post">
+            @csrf
+            <input type="hidden" name="answer">
+        </form>
 
-<script>
+        @include('editor.component')
 
-    async function main() {
+    </div>
 
-        async function getMathProblem() {
+@endsection
 
-            let url = '{{ route("problem.solve", $mathProblem->id) }}';
+@section('scripts')
+    @parent
 
-            let result = null;
+    <script src="https://cdn.jsdelivr.net/npm/evaluatex@2.2.0/dist/evaluatex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
 
-            await $.ajax({
-                url: url,
-                type: 'GET',
-                dataType: 'json',
-                accepts: {
-                    text: "application/json"
-                },
-                success: function(response) {
-                    result = JSON.parse(response);
-                },
-                error: function(xhr, status, error) {
-                    console.log(error);
-                }
-            });
+    @include('editor.scripts')
 
-            return result;
-
-        }
-
-        let mathProblem = await getMathProblem();
-
-        $(document).ready(() => {
-
-            displayMath(content, mathProblem);
-
-        });
-
-        $('#sendAnswer').on('click', function() {
-            var jsonObj = $('.eqEdEquation').data('eqObject').buildJsonObj();
-            var latexAnswer = generateLatex(jsonObj);
-            sendLatexAnswer(latexAnswer);
-        });
-
-    }
-
-    function sendLatexAnswer(latex) {
-
-        $('#answerForm input[name="answer"]').val(latex);
-
-        $('#answerForm').submit();
-
-    }
-
-    main();
-
-</script>
+@endsection

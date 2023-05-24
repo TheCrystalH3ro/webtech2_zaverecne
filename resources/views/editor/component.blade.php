@@ -1,12 +1,12 @@
 <div class="tabs">
-    <ul class="outer-tab-links tab-links">
-        <li class="outerTab active"><a href="#common">{{ __('Common') }}</a></li>
-        <li class="outerTab"><a href="#brackets">{{ __('Brackets') }}</a></li>
-        <li class="outerTab"><a href="#symbols">{{ __('Symbols') }}</a></li>
-        <li class="outerTab"><a href="#functions">{{ __('Functions')}}</a></li>
-        <li class="outerTab"><a href="#largeOperators">{{ __('Large Operators') }}</a></li>
-        <li class="outerTab"><a href="#integrals">{{ __('Integrals')}}</a></li>
-        <li class="outerTab"><a href="#misc">{{ __('Misc') }}</a></li>
+    <ul class="outer-tab-links tab-links mb-2 mt-2">
+        <li class="outerTab active"><a class="btn bg-transparent btn-outline-light text-white" href="#common">{{ __('Common') }}</a></li>
+        <li class="outerTab"><a class="btn bg-transparent btn-outline-light text-white" href="#brackets">{{ __('Brackets') }}</a></li>
+        <li class="outerTab"><a class="btn bg-transparent btn-outline-light text-white" href="#symbols">{{ __('Symbols') }}</a></li>
+        <li class="outerTab"><a class="btn bg-transparent btn-outline-light text-white" href="#functions">{{ __('Functions')}}</a></li>
+        <li class="outerTab"><a class="btn bg-transparent btn-outline-light text-white" href="#largeOperators">{{ __('Large Operators') }}</a></li>
+        <li class="outerTab"><a class="btn bg-transparent btn-outline-light text-white" href="#integrals">{{ __('Integrals')}}</a></li>
+        <li class="outerTab"><a class="btn bg-transparent btn-outline-light text-white" href="#misc">{{ __('Misc') }}</a></li>
     </ul>
 
     <div class="tab-content" id="tab-content-top">
@@ -24,9 +24,9 @@
         </div>
 
         <div id="brackets" class="tab outer">
-            <ul class="inner-tab-links tab-links">
-                <li class="innerTab active"><a href="#bracketsSingle">{{ __('Single') }}</a></li>
-                <li class="innerTab"><a href="#bracketsPair">{{ __('Pair') }}</a></li>
+            <ul class="inner-tab-links tab-links mb-2">
+                <li class="innerTab active"><a class="btn bg-transparent btn-outline-light text-white" href="#bracketsSingle">{{ __('Single') }}</a></li>
+                <li class="innerTab"><a class="btn bg-transparent btn-outline-light text-white" href="#bracketsPair">{{ __('Pair') }}</a></li>
             </ul>
             <div class="tab-content tab-content-nested">
               <div id="bracketsSingle" class="tab inner active">
@@ -51,10 +51,10 @@
         </div>
 
         <div id="symbols" class="tab outer">
-            <ul class="inner-tab-links tab-links">
-                <li class="innerTab active"><a href="#symbolsOperators">{{ __('Operators') }}</a></li>
-                <li class="innerTab"><a href="#symbolsGreek">{{ __('Greek') }}</a></li>
-                <li class="innerTab"><a href="#symbolsMisc">{{ __('Misc') }}</a></li>
+            <ul class="inner-tab-links tab-links mb-2">
+                <li class="innerTab active"><a class="btn bg-transparent btn-outline-light text-white" href="#symbolsOperators">{{ __('Operators') }}</a></li>
+                <li class="innerTab"><a class="btn bg-transparent btn-outline-light text-white" href="#symbolsGreek">{{ __('Greek') }}</a></li>
+                <li class="innerTab"><a class="btn bg-transparent btn-outline-light text-white" href="#symbolsMisc">{{ __('Misc') }}</a></li>
             </ul>
             <div class="tab-content tab-content-nested">
               <div id="symbolsOperators" class="tab inner active">
@@ -134,9 +134,9 @@
         </div>
 
         <div id="functions" class="tab outer">
-            <ul class="inner-tab-links tab-links">
-                <li class="innerTab active"><a href="#functionsTrig">{{ __('Trig') }}</a></li>
-                <li class="innerTab"><a href="#functionsMisc">{{ __('Misc') }}</a></li>
+            <ul class="inner-tab-links tab-links mb-2">
+                <li class="innerTab active"><a class="btn bg-transparent btn-outline-light text-white" href="#functionsTrig">{{ __('Trig') }}</a></li>
+                <li class="innerTab"><a class="btn bg-transparent btn-outline-light text-white" href="#functionsMisc">{{ __('Misc') }}</a></li>
             </ul>
             <div class="tab-content tab-content-nested">
               <div id="functionsTrig" class="tab inner active">
@@ -166,16 +166,16 @@
         </div>
 
         <div id="largeOperators" class="tab outer">
-            <ul class="inner-tab-links tab-links">
-                <li class="innerTab active"><a href="#largeOperatorsSum"><img class="innerTabImg" src="/editorResources/MenuImages/png/sumSymbol.png"></a></li>
-                <li class="innerTab"><a href="#largeOperatorsBigCap"><img class="innerTabImg" src="/editorResources/MenuImages/png/bigCapSymbol.png"></a></li>
-                <li class="innerTab"><a href="#largeOperatorsBigCup"><img class="innerTabImg" src="/editorResources/MenuImages/png/bigCupSymbol.png"></a></li>
-                <li class="innerTab"><a href="#largeOperatorsBigSqCap"><img class="innerTabImg" src="/editorResources/MenuImages/png/bigSqCapSymbol.png"></a></li>
-                <li class="innerTab"><a href="#largeOperatorsBigSqCup"><img class="innerTabImg" src="/editorResources/MenuImages/png/bigSqCupSymbol.png"></a></li>
-                <li class="innerTab"><a href="#largeOperatorsProd"><img class="innerTabImg" src="/editorResources/MenuImages/png/prodSymbol.png"></a></li>
-                <li class="innerTab"><a href="#largeOperatorsCoProd"><img class="innerTabImg" src="/editorResources/MenuImages/png/coProdSymbol.png"></a></li>
-                <li class="innerTab"><a href="#largeOperatorsBigVee"><img class="innerTabImg" src="/editorResources/MenuImages/png/bigVeeSymbol.png"></a></li>
-                <li class="innerTab"><a href="#largeOperatorsBigWedge"><img class="innerTabImg" src="/editorResources/MenuImages/png/bigWedgeSymbol.png"></a></li>
+            <ul class="inner-tab-links tab-links mb-2">
+                <li class="innerTab active"><a class="btn bg-transparent btn-outline-light text-white" href="#largeOperatorsSum"><img class="innerTabImg" src="/editorResources/MenuImages/png/sumSymbol.png"></a></li>
+                <li class="innerTab"><a class="btn bg-transparent btn-outline-light text-white" href="#largeOperatorsBigCap"><img class="innerTabImg" src="/editorResources/MenuImages/png/bigCapSymbol.png"></a></li>
+                <li class="innerTab"><a class="btn bg-transparent btn-outline-light text-white" href="#largeOperatorsBigCup"><img class="innerTabImg" src="/editorResources/MenuImages/png/bigCupSymbol.png"></a></li>
+                <li class="innerTab"><a class="btn bg-transparent btn-outline-light text-white" href="#largeOperatorsBigSqCap"><img class="innerTabImg" src="/editorResources/MenuImages/png/bigSqCapSymbol.png"></a></li>
+                <li class="innerTab"><a class="btn bg-transparent btn-outline-light text-white" href="#largeOperatorsBigSqCup"><img class="innerTabImg" src="/editorResources/MenuImages/png/bigSqCupSymbol.png"></a></li>
+                <li class="innerTab"><a class="btn bg-transparent btn-outline-light text-white" href="#largeOperatorsProd"><img class="innerTabImg" src="/editorResources/MenuImages/png/prodSymbol.png"></a></li>
+                <li class="innerTab"><a class="btn bg-transparent btn-outline-light text-white" href="#largeOperatorsCoProd"><img class="innerTabImg" src="/editorResources/MenuImages/png/coProdSymbol.png"></a></li>
+                <li class="innerTab"><a class="btn bg-transparent btn-outline-light text-white" href="#largeOperatorsBigVee"><img class="innerTabImg" src="/editorResources/MenuImages/png/bigVeeSymbol.png"></a></li>
+                <li class="innerTab"><a class="btn bg-transparent btn-outline-light text-white" href="#largeOperatorsBigWedge"><img class="innerTabImg" src="/editorResources/MenuImages/png/bigWedgeSymbol.png"></a></li>
             </ul>
             <div class="tab-content tab-content-nested">
               <div id="largeOperatorsSum" class="tab inner active">
@@ -245,13 +245,13 @@
         </div>
 
         <div id="integrals" class="tab outer">
-            <ul class="inner-tab-links tab-links">
-                <li class="innerTab active"><a href="#integralsIntegral"><img class="innerTabImg" src="/editorResources/MenuImages/png/integralSymbol.png"></a></li>
-                <li class="innerTab"><a href="#integralsDoubleIntegral"><img class="innerTabImg" src="/editorResources/MenuImages/png/doubleIntegralSymbol.png"></a></li>
-                <li class="innerTab"><a href="#integralsTripleIntegral"><img class="innerTabImg" src="/editorResources/MenuImages/png/tripleIntegralSymbol.png"></a></li>
-                <li class="innerTab"><a href="#integralsContourIntegral"><img class="innerTabImg" src="/editorResources/MenuImages/png/contourIntegralSymbol.png"></a></li>
-                <li class="innerTab"><a href="#integralsContourDoubleIntegral"><img class="innerTabImg" src="/editorResources/MenuImages/png/doubleContourIntegralSymbol.png"></a></li>
-                <li class="innerTab"><a href="#integralsContourTripleIntegral"><img class="innerTabImg" src="/editorResources/MenuImages/png/tripleContourIntegralSymbol.png"></a></li>
+            <ul class="inner-tab-links tab-links mb-2">
+                <li class="innerTab active"><a class="btn bg-transparent btn-outline-light text-white" href="#integralsIntegral"><img class="innerTabImg" src="/editorResources/MenuImages/png/integralSymbol.png"></a></li>
+                <li class="innerTab"><a class="btn bg-transparent btn-outline-light text-white" href="#integralsDoubleIntegral"><img class="innerTabImg" src="/editorResources/MenuImages/png/doubleIntegralSymbol.png"></a></li>
+                <li class="innerTab"><a class="btn bg-transparent btn-outline-light text-white" href="#integralsTripleIntegral"><img class="innerTabImg" src="/editorResources/MenuImages/png/tripleIntegralSymbol.png"></a></li>
+                <li class="innerTab"><a class="btn bg-transparent btn-outline-light text-white" href="#integralsContourIntegral"><img class="innerTabImg" src="/editorResources/MenuImages/png/contourIntegralSymbol.png"></a></li>
+                <li class="innerTab"><a class="btn bg-transparent btn-outline-light text-white" href="#integralsContourDoubleIntegral"><img class="innerTabImg" src="/editorResources/MenuImages/png/doubleContourIntegralSymbol.png"></a></li>
+                <li class="innerTab"><a class="btn bg-transparent btn-outline-light text-white" href="#integralsContourTripleIntegral"><img class="innerTabImg" src="/editorResources/MenuImages/png/tripleContourIntegralSymbol.png"></a></li>
             </ul>
             <div class="tab-content tab-content-nested">
               <div id="integralsIntegral" class="tab inner active">
@@ -303,17 +303,22 @@
             <img class="menuItem" id="hatAccentButton" src="/editorResources/MenuImages/png/hatAccent.png">
             <img class="menuItem" id="vectorAccentButton" src="/editorResources/MenuImages/png/vectorAccent.png">
             <img class="menuItem" id="barAccentButton" src="/editorResources/MenuImages/png/barAccent.png">
-            <div style="display: inline-block">rows: <input type="text" id="rows" /><br> cols: <input type="text" id="cols" /></div>
-            <div class="menuItem" id="matrixButton" style="font-size: 35px; padding: 5px 5px; display: inline-block">{{ __('Matrix') }}</div>
+            <div class="mb-2">rows: <input class="form-control" type="text" id="rows" /><br> cols: <input class="form-control" type="text" id="cols" /></div>
+            <div class="menuItem btn btn-outline-dark" id="matrixButton" style="font-size: 35px; padding: 5px 5px; display: inline-block">{{ __('Matrix') }}</div>
         </div>
     </div>
 </div>
-<h1>{{ __('Enter your answer here') }}</h1>
-<div class="equation-editor"></div>
+
+<h1 class="mt-4 mb-3">{{ __('Enter your answer here') }}</h1>
+
+<div class="equation_wrapper">
+  <div class="equation-editor w-100"></div>
+</div>
+
 <input id="hiddenFocusInput" style="width: 0; height: 0; opacity: 0; position: absolute; top: 0; left: 0;" type="text" autocapitalize="off" />
+
 <div id="loadingMessageOuter" style="width: 234px; height: 64px;">
   <div id="loadingMessage" class="fontSizeSmaller" style="width: 234px; height: 64px; position: fixed;"></div>
 </div>
-<button id="sendAnswer">{{ __('Send answer') }}</button>
-<p>LaTeX:</p>
-<div id="ContentLatex" style="margin: 20px; border: solid 1px #000">&nbsp;</div>
+
+<button id="sendAnswer" class="btn btn-primary d-block mt-3 w-100">{{ __('Send answer') }}</button>
