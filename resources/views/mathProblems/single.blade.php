@@ -5,10 +5,10 @@
     <div class="content min-h-screen w-100">
 
         <h1>Zadanie príkladu</h1>
-        <div id="content">
+        <div id="content" class="mt-4 mb-4">
             <p>{{ $mathProblem->task }}</p>
             @if ($mathProblem->image)
-                <img src="{{ asset('storage/uploadedImg/' . $mathProblem->image) }}" alt="" class="mb-3">
+                <img class="img-fluid" src="{{ asset('storage/uploadedImg/' . $mathProblem->image) }}" alt="">
             @endif
         </div>
 

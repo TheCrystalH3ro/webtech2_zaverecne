@@ -29,7 +29,7 @@
                 <h4>Zadanie:</h4>
                 <p>{{ $mathProblem->task }}</p>
                 @if ($mathProblem->image)
-                    <img src="{{ asset('storage/uploadedImg/' . $mathProblem->image) }}" alt="">
+                    <img class="img-fluid" src="{{ asset('storage/uploadedImg/' . $mathProblem->image) }}" alt="">
                 @endif
                 <h4>Riešenie:</h4>
                 <p>{{ $mathProblem->solution }}</p>

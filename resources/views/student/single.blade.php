@@ -19,13 +19,15 @@
 
         @foreach ($student->mathProblems as $mathProblem)
 
-            <div class="mb-3">
+            <div class="card mt-4 mb-4">
+                <div class="card-body">
 
-                <p>{{ $mathProblem->task }}</p>
-                @if ($mathProblem->image)
-                    <img src="{{ asset('/storage/uploadedImg/' . $mathProblem->image) }}" alt="{{ $mathProblem->id }}">
-                @endif
+                    <p>{{ $mathProblem->task }}</p>
+                    @if ($mathProblem->image)
+                        <img class="img-fluid" src="{{ asset('/storage/uploadedImg/' . $mathProblem->image) }}" alt="{{ $mathProblem->id }}">
+                    @endif
 
+                </div>
             </div>
 
         @endforeach

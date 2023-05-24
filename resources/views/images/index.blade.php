@@ -29,7 +29,7 @@
                     @method('DELETE')
                     <button class="btn btn-primary mb-2" type="submit">{{ __('Delete image') }}</button>
                 </form>
-                <img class="mb-4" src="{{ asset('storage/' . $image->path)  }}" alt="{{ $image->name }}">
+                <img class="img-fluid" class="mb-4" src="{{ asset('storage/' . $image->path)  }}" alt="{{ $image->name }}">
             </div>
         @endforeach
 

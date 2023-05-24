@@ -16,7 +16,7 @@
                         <h4>Zadanie:</h4>
                         <p>{{ $mathProblem->task }}</p>
                         @if ($mathProblem->image)
-                            <img src="{{ asset('storage/uploadedImg/' . $mathProblem->image) }}" alt="">
+                            <img class="img-fluid" src="{{ asset('storage/uploadedImg/' . $mathProblem->image) }}" alt="">
                         @endif
                     </div>
                     <a href="{{ route('problem.solve', $mathProblem->id) }}" class="btn btn-primary mt-2 mb-3">{{ __('Solve') }}</a>
@@ -34,7 +34,7 @@
                         <h4>Zadanie:</h4>
                         <p>{{ $mathProblem->task }}</p>
                         @if ($mathProblem->image)
-                            <img src="{{ asset('storage/uploadedImg/' . $mathProblem->image) }}" alt="">
+                            <img class="img-fluid" src="{{ asset('storage/uploadedImg/' . $mathProblem->image) }}" alt="">
                         @endif
                     </div>
                 @endforeach
