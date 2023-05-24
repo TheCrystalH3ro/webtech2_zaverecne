@@ -1,7 +1,7 @@
 <div class="card mt-4 mb-4">
     <div class="card-body">
 
-        <p> {{ __('Po prihlásení sa ocitnete na domovskej stránke. V ľavej časti navigácie môžete prejsť na inú podstránku a v pravej zmeniť jazyk alebo sa odhlásiť.') }} </p>
+        <p> {{ __('After logging in, you will find yourself on the home page. In the left part of the navigation, you can go to another subpage, and in the right part you can change the language or log out.') }} </p>
         <img class="img-fluid shadow" src="{{ asset("img/tutorial/teacher/homepage.png") }}">
 
     </div>
@@ -10,7 +10,7 @@
 <div class="card mt-4 mb-4">
     <div class="card-body">
 
-        <p> {{ __('Na podstránke Študenti, si môžete pozrieť všetkých študentov s ich ID, počtom vygenerovaných a odovzdaných príkladov. Túto tabuľku si možete stiehnuť ako CSV.') }} </p>
+        <p> {{ __('On the Students subpage, you can view all students with their ID, the number of generated and submitted tasks. You can download this table as CSV.') }} </p>
         <img class="img-fluid shadow" src="{{ asset("img/tutorial/teacher/student_list.png") }}">
 
     </div>
@@ -19,7 +19,7 @@
 <div class="card mt-4 mb-4">
     <div class="card-body">
 
-        <p> {{ __('Detailné zobrazenie študenta si otvoríte po kliknutí na riadok v tabuľke. Nájdete tu zoznam všetkých vygenerovaných úloh pre študenta.   ') }} </p>
+        <p> {{ __('You can open a detailed view of a student by clicking on a row in the table. Here you will find a list of all generated tasks for the student.') }} </p>
         <img class="img-fluid shadow" src="{{ asset("img/tutorial/teacher/student_profile.png") }}">
 
     </div>
@@ -28,7 +28,7 @@
 <div class="card mt-4 mb-4">
     <div class="card-body">
 
-        <p> {{ __('V detaile študenta sa možete prekliknúť na stránku priradenia sady príkladov.') }} </p>
+        <p> {{ __('In the student details, you can click on the task set assignment page.') }} </p>
         <img class="img-fluid shadow" src="{{ asset("img/tutorial/teacher/student_sets.png") }}">
 
     </div>
@@ -37,7 +37,7 @@
 <div class="card mt-4 mb-4">
     <div class="card-body">
 
-        <p> {{ __('V detaile študenta sa možete prekliknúť na stránku odovzdaných matematických úloh s jeho odpoveďou a počtu bodov.') }} </p>
+        <p> {{ __('In the details of the student, you can click on the page of submitted math problems with their answer and the number of points.') }} </p>
         <img class="img-fluid shadow" src="{{ asset("img/tutorial/teacher/student_submitted_tasks.png") }}">
 
     </div>
@@ -46,7 +46,7 @@
 <div class="card mt-4 mb-4">
     <div class="card-body">
 
-        <p> {{ __('Na postránke Sady, môžete nahrať súbor s príkladmi a zobraziť si ich.') }} </p>
+        <p> {{ __('On the Sets subpage, you can upload a file with tasks and view them.') }} </p>
         <img class="img-fluid shadow" src="{{ asset("img/tutorial/teacher/sets_list.png") }}">
 
     </div>
@@ -55,7 +55,7 @@
 <div class="card mt-4 mb-4">
     <div class="card-body">
 
-        <p> {{ __('Po kliknutí na pridaný súbor s príkladmi sa vám zobrazí táto stránka, kde môžete súbor priraďovať študentom, upravovať ho, stiahnuť si ho alebo vymazať.') }} </p>
+        <p> {{ __('After clicking on the added task file, you will be presented with this page where you can assign the file to students, edit it, download it, or delete it.') }} </p>
         <img class="img-fluid shadow" src="{{ asset("img/tutorial/teacher/set_view.png") }}">
 
     </div>
@@ -64,7 +64,7 @@
 <div class="card mt-4 mb-4">
     <div class="card-body">
 
-        <p> {{ __('Na tejto stránke môžete pridávať a odoberať študentov ktorým budú priradené úlohy.') }} </p>
+        <p> {{ __('On this page you can add and remove students for which this set will be assigned.') }} </p>
         <img class="img-fluid shadow" src="{{ asset("img/tutorial/teacher/set_assigned.png") }}">
 
     </div>
@@ -73,7 +73,7 @@
 <div class="card mt-4 mb-4">
     <div class="card-body">
 
-        <p> {{ __('Na tejto stránke možete detailne upravovať sadu príkladov, nastaviť počet bodov, dátum kedy budú dostupné.') }} </p>
+        <p> {{ __('On this page, you can edit the set of tasks in detail, set the number of points, the date when they will be available.') }} </p>
         <img class="img-fluid shadow" src="{{ asset("img/tutorial/teacher/set_edit.png") }}">
 
     </div>
@@ -82,7 +82,7 @@
 <div class="card mt-4 mb-4">
     <div class="card-body">
 
-        <p> {{ __('Na podstránke Obrázky, môžete nahrať obrázky, ktoré budú použité pri príkladoch.') }} </p>
+        <p> {{ __('On the Images subpage, you can upload images that will be used in the tasks.') }} </p>
         <img class="img-fluid shadow" src="{{ asset("img/tutorial/teacher/images_list.png") }}">
 
     </div>
