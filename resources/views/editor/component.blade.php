@@ -1,3 +1,14 @@
+<div class="mt-3 mb-3">
+
+  <h2>{{ __('Instructions:') }}</h2>
+  <p>Vsetky cleny ktore mozu byt zlucene tak zluc(zly priklad: 4x+2x+10 => spravne: 6x+10)</p>
+  <p>V pripade odpovede typu rovnice pis premennnu vzdy na lavejk strane(napr. x=10)</p>
+  <p>Do riesenia nepridavat zbytocne 1tky, alebo upravy ktore urobia iba vizualne zmeny(zle priklady: 10x-1+1, x^1+5, atd.)</p>
+  <p>V pripade odpovede kde je potrebne napisat nejaku premennu, pouzi iba jednopismenkove hodnoty</p>
+  <p>V pripade ze vysledok je hodnota a obsahuje mocniny, pis hodnoty s najvacsou mocninou ako prve(napr. x^4-x^2-3)</p>
+
+</div>
+
 <div class="tabs">
     <ul class="outer-tab-links tab-links mb-2 mt-2">
         <li class="outerTab active"><a class="btn bg-transparent btn-outline-light text-white" href="#common">{{ __('Common') }}</a></li>
