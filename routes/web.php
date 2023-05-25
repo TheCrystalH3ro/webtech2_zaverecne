@@ -100,6 +100,4 @@ Route::middleware(['auth', 'student'])->group(function() {
 
 });
 
-Route::get('/editor', [EditorController::class, 'show']);
-
 require __DIR__.'/auth.php';
