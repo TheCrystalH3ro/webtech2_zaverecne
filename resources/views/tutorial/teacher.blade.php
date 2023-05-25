@@ -10,7 +10,8 @@
 <div class="card mt-4 mb-4">
     <div class="card-body">
 
-        <p> {{ __('Na podstránke Študenti, si môžete pozrieť všetkých študentov s ich ID, počtom vygenerovaných a odovzdaných príkladov. Túto tabuľku si možete stiehnuť ako CSV.') }} </p>
+        <p> {{ __('Na podstránke Študenti, si môžete pozrieť všetkých študentov s ich ID, počtom vygenerovaných, odovzdaných príkladov a bodov. Túto tabuľku si možete stiehnuť ako CSV.') }} </p>
+        <p> {{ __('Študentov je možné triediť kliknutím na názov stĺpca.') }} </p>
         <img class="img-fluid shadow" src="{{ asset("img/tutorial/teacher/student_list.png") }}">
 
     </div>
