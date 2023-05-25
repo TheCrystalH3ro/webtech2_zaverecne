@@ -404,4 +404,20 @@ class MathProblemController extends Controller
         return redirect('/');
     }
 
+
+    public function parseInput($input){
+        
+        if (strpos($input, '\begin{equation*}') === false && strpos($input, '\end{equation*}') === false) {
+            $parsedInput = '\begin{equation*}' . $input . '\end{equation*}';
+        }
+        else {
+            $parsedInput = $input;
+        }
+    
+        return $parsedInput;
+    }
+
 }
+
+}
+
