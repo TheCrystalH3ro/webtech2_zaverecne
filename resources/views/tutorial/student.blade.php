@@ -1,3 +1,7 @@
+@if (isset($includeStyles) && $includeStyles)
+    @vite(['resources/css/bootstrap.min.css', 'resources/css/style.css'])
+@endif
+
 <div class="card mt-4 mb-4">
     <div class="card-body">
 
