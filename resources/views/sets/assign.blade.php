@@ -23,7 +23,7 @@
             </div>
         </form>
 
-        <h2>Assigned to students:</h2>
+        <h2>{{ __("Assigned to students") }}:</h2>
         <table class="w-100">
             @foreach ($set->users as $user)
                 <tr>

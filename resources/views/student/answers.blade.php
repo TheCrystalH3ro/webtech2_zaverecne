@@ -4,7 +4,7 @@
 
     <div class="content min-h-screen w-100">
 
-        <h1>{{ __('Submitted math problems') }}</h1>
+        <h1>{{ __('Submitted math tasks') }}</h1>
         @foreach ($student->submittedMathProblems as $mathProblem)
 
             <div class="card mt-4 mb-4">
@@ -20,7 +20,7 @@
             
                     <div class="d-flex gap-1">
             
-                        <p>{{ __('STUDENT\'S ANSWER:') }}</p>
+                        <p>{{ __('STUDENT\'S ANSWER') }}:</p>
                         <p>{{ $mathProblem->pivot->answer }}</p>
             
                     </div>

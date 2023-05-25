@@ -20,7 +20,7 @@
                 @endif    
             @endauth
             <li class="nav-item">
-                <a class="nav-link @if(Request::segment(1) == 'tutorial') active @endif" href="#">{{ __("Tutorial") }}</a>
+                <a class="nav-link @if(Request::segment(1) == 'tutorial') active @endif" href="{{ route('tutorial') }}">{{ __("Tutorial") }}</a>
             </li>
         </ul>
         <div class="navbar-nav d-flex ms-auto align-items-lg-center">
@@ -33,11 +33,8 @@
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
 
-                    <button class="btn btn-outline-light">{{ __('Log Out') }}</button>
+                    <button class="btn btn-outline-light">{{ __('LOGOUT') }}</button>
                 </form>
-            @else
-                <a href="{{ route('login') }}" class="btn btn-outline-light ms-2">{{ __('Login') }}</a>
-                <a href="{{ route('register') }}" class="btn btn-secondary ms-2">{{ __('Create new account') }}</a>
             @endauth
         </div>
       </div>

@@ -24,20 +24,20 @@
 
         </div>
 
-        <h2>{{ __('Problems') }}</h2>
+        <h2>{{ __('Tasks') }}</h2>
 
         @foreach ($set->mathProblems as $mathProblem)
 
             <div class="card mt-4 mb-4">
                 <div class="card-body">
 
-                    <h4>Zadanie:</h4>
+                    <h4>{{ __('Task') }}:</h4>
                     <p>{{ $mathProblem->task }}</p>
                     @if ($mathProblem->image)
                         <img class="img-fluid" src="{{ asset('storage/uploadedImg/' . $mathProblem->image) }}" alt="">
                     @endif
 
-                    <h4 class="mt-3">Riešenie:</h4>
+                    <h4 class="mt-3">{{ __('Solution') }}:</h4>
                     <p>{{ $mathProblem->solution }}</p>
 
                 </div>
