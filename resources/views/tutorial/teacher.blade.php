@@ -1,3 +1,7 @@
+@if (isset($includeStyles) && $includeStyles)
+    @vite(['resources/css/bootstrap.min.css', 'resources/css/style.css'])
+@endif
+
 <div class="card mt-4 mb-4">
     <div class="card-body">
 
@@ -10,9 +14,8 @@
 <div class="card mt-4 mb-4">
     <div class="card-body">
 
-        <p> {{ __('Na podstránke Študenti, si môžete pozrieť všetkých študentov s ich ID, počtom vygenerovaných, odovzdaných príkladov a bodov. Túto tabuľku si možete stiehnuť ako CSV.') }} </p>
-        <p> {{ __('Študentov je možné triediť kliknutím na názov stĺpca.') }} </p>
-        <p> {{ __('On the Students subpage, you can view all students with their ID, the number of generated and submitted tasks. You can download this table as CSV.') }} </p>
+        <p> {{ __('On the Students subpage, you can view all students with their ID, the number of generated,  submitted tasks and points. You can download this table as CSV.') }} </p>
+        <p> {{ __('Students can be sorted by clicking on the column name.') }} </p>
         <img class="img-fluid shadow" src="{{ asset("img/tutorial/teacher/student_list.png") }}">
 
     </div>

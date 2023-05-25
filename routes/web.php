@@ -50,6 +50,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::get('/tutorial', [TutorialController::class, 'show'])->name('tutorial');
+    Route::get('/tutorial/download', [TutorialController::class, 'download'])->name('tutorial.download');
 });
 
 Route::middleware(['auth', 'teacher'])->group(function() {
