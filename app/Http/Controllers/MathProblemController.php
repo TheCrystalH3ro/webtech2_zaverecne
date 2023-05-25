@@ -45,7 +45,7 @@ class MathProblemController extends Controller
                 $equationContent = $equationMatch;
                 $matchedContent = str_replace('$' . $equationContent . '$', '\begin{equation*}' . $equationContent . '\end{equation*}', $matchedContent);
             }
-        
+
             preg_match_all('/\$([^$]+)\$/', $solutionContent, $solutionMatches);
             foreach ($solutionMatches[1] as $solutionMatch) {
                 $equationContent = $solutionMatch;
@@ -113,7 +113,7 @@ class MathProblemController extends Controller
             '',
             $mathProblem->solution
         );
-        
+
         $solution = preg_replace(
             ['/(\\\\)dfrac/', '/(\\\\)tfrac/', '/\\s/'],
             ['\\frac', '\\frac', ''],
@@ -352,7 +352,7 @@ class MathProblemController extends Controller
 
     function findClosingBracketIndex($input, $openingIndex) {
         $counter = 0;
-    
+
         for ($i = $openingIndex + 1; $i < strlen($input); $i++) {
             if ($input[$i] === "{") {
                 $counter++;
@@ -382,9 +382,6 @@ class MathProblemController extends Controller
         return null;
     }
 
-
-
-
     public function submitAnswer(Request $request, $id) {
 
         $mathProblem = Auth::user()->mathProblems()->findOrFail($id);
@@ -399,25 +396,21 @@ class MathProblemController extends Controller
 
         $isCorrect = $this->isAnswerCorrect($answer, $mathProblem);
 
-        Auth::user()->mathProblems()->updateExistingPivot($id, ['is_submitted' => true, 'is_correct' => $isCorrect, 'answer' => $answer]);
+        Auth::user()->mathProblems()->updateExistingPivot($id, ['is_submitted' => true, 'is_correct' => $isCorrect, 'answer' => $this->parseInput($answer)]);
 
         return redirect('/');
     }
 
+    private function parseInput($input){
 
-    public function parseInput($input){
-        
         if (strpos($input, '\begin{equation*}') === false && strpos($input, '\end{equation*}') === false) {
             $parsedInput = '\begin{equation*}' . $input . '\end{equation*}';
         }
         else {
             $parsedInput = $input;
         }
-    
+
         return $parsedInput;
     }
 
 }
-
-}
-
